@@ -1,10 +1,9 @@
 <template>
-  <div class="cont">
-    <p>test</p>
-    <NuxtLink to="/ticket/">ticket</NuxtLink>
-  </div>
+  <main class="l-main">
+    <p>list</p>
+    <NuxtLink to="/">top</NuxtLink>
+  </main>
 </template>
-
 <script>
 import Vue from 'vue'
 
@@ -24,8 +23,8 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-.cont {
+<style lnag="scss" scoped>
+.l-main {
   width: 100%;
 }
 </style>

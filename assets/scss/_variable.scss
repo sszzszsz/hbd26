@@ -1,0 +1,18 @@
+//Color
+$brown_pale1: #fdfaf3;
+$brown_dark1: #928d82;
+
+//padding
+$cont_pad: '15px';
+
+@mixin stripe($color1: $brown_pale1, $color2: $brown_dark1) {
+  background-size: auto auto;
+  background-color: rgba(255, 255, 255, 1);
+  background-image: repeating-linear-gradient(
+    -50deg,
+    transparent,
+    transparent 10px,
+    $color1 10px,
+    $color2 20px
+  );
+}
