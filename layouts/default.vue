@@ -10,15 +10,25 @@
     ]"
     class="l-wrap"
   >
-    <Nuxt />
+    <div ref="l-cont" class="l-cont">
+      <frame />
+      <div class="l-inr">
+        <Nuxt />
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import Vue from 'vue'
+import frame from '~/components/frame.vue'
 
 export default Vue.extend({
+  components: {
+    frame,
+  },
   data() {
     return {
+      vh: 0,
       ipadFlag: false,
       browser: '',
       classList: '',
@@ -34,21 +44,41 @@ export default Vue.extend({
   },
   mounted() {
     this.getVh()
-    window.addEventListener('resize', () => {
-      this.getVh()
-    })
   },
   methods: {
     getVh() {
-      const vh = window.innerHeight * 0.01
-      document.documentElement.style.setProperty('--vh', `${vh}px`)
+      this.vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${this.vh}px`)
+    },
+    setEventLister() {
+      window.addEventListener('resize', () => {
+        this.getVh()
+      })
     },
   },
 })
 </script>
 
-<style lnag="scss" scoped>
-.l-wrap {
-  @include stripe();
+<style lang="scss" scoped>
+.l {
+  &-wrap {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    padding: 10px;
+    @include stripe();
+  }
+
+  &-cont {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    // border: 2px solid $brown_dark1;
+  }
+
+  &-inr {
+    position: relative;
+    z-index: 2;
+  }
 }
 </style>
