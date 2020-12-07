@@ -4,13 +4,17 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 // const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
 // const baseDir = process.env.BASE_DIR || '/'
 
+const site = {
+  title: 'SPECIAL TICKETS | Happy BirthDay 26th',
+  titleDes: 'Happy 27th birthday',
+}
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'hbd26',
+    title: site.title,
     htmlAttrs: {
       lang: 'ja',
     },
@@ -18,9 +22,20 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'format-detection', content: 'telephone=no, email=no, address=no' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: site.titleDes },
+      // ogp関連
+      { hid: 'og:site_name', property: 'og:site_name', content: site.title },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: 'https://hbd26.netlify.com/' },
+      { hid: 'og:title', property: 'og:title', content: site.title },
+      { hid: 'og:description', property: 'og:description', content: site.titleDes },
+      { name: 'twitter:card', content: 'summary_large_image' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/icon/favicon-16x16.png' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+    ],
   },
 
   /*
@@ -67,7 +82,7 @@ export default {
 
   webfontloader: {
     google: {
-      families: ['Sawarabi+Gothic', 'Libre+Baskerville'],
+      families: ['Josefin+Sans:400,500,700', 'Noto+Sans+JP:500,600'],
     },
   },
 
