@@ -21,7 +21,7 @@
 .m-star {
   &__item {
     position: absolute;
-    height: 100%;
+    height: 50%;
   }
   &__inr {
     width: 20px;
@@ -40,12 +40,12 @@
 @for $i from 1 through 30 {
   .m-starList li:nth-child(#{$i}) {
     $rondomNum: minMaxRandom(20, 30, 1%);
-    top: minMaxRandom(-50, 50, 1%);
+    top: minMaxRandom(0, 80, 1%);
     right: minMaxRandom(10, 90, 1%);
     svg {
       animation-name: star;
-      animation-delay: minMaxRandom(0, 5, 1s);
-      animation-duration: minMaxRandom(15, 20, 1s);
+      animation-delay: minMaxRandom(0, 3, 1s);
+      animation-duration: minMaxRandom(10, 20, 1s);
       animation-iteration-count: infinite;
       animation-fill-mode: both;
       animation-timing-function: linear;
