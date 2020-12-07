@@ -1,6 +1,11 @@
 <template>
   <div class="m-frame">
     <svg :viewBox="viewBox" class="m-frame__svg">
+      <defs>
+        <filter id="blur">
+          <feGaussianBlur stdDeviation="15" />
+        </filter>
+      </defs>
       <g class="m-frame__outer">
         <mask id="mask1">
           <!-- Everything under a white pixel will be visible -->
@@ -39,7 +44,6 @@
         </mask>
         <!-- with this mask applied, we "punch" a heart shape hole into the circle -->
         <rect x="0" y="0" class="m-frame__bg" />
-        <!-- <rect x="0" y="0" class="m-frame__test" /> -->
         <image
           v-if="this.$store.state.global.pageName === 'index'"
           xlink:href="@/assets/img/bg.png"
@@ -58,14 +62,15 @@ export default Vue.extend({
     return {
       viewBox: '0 0 0 0',
       viewBoxAry: [0, 0, 0, 0],
-      width: 0,
-      height: 0,
+      width: 375,
+      height: 8,
     }
   },
   created() {},
   mounted() {
     console.log('frame')
     this.setViewBox()
+    this.setEventLister()
   },
   methods: {
     setViewBox() {
@@ -106,7 +111,7 @@ export default Vue.extend({
   &__bd {
     width: 100%;
     height: 100%;
-    fill: $brown_dark2;
+    fill: $brown_dark1;
     mask: url(#mask1);
   }
   &__bg {
@@ -127,11 +132,10 @@ export default Vue.extend({
   }
   &__img {
     display: block;
-    // width: calc(100% - 8px);
-    // height: calc(100% - 8px);
     mask: url(#mask2);
     opacity: 0.7;
     transform: translate(4px, 4px);
+    filter: 'url(#blur)';
   }
 
   #mask1 {

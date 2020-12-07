@@ -44,6 +44,7 @@ export default Vue.extend({
   },
   mounted() {
     this.getVh()
+    this.setEventLister()
   },
   methods: {
     getVh() {
@@ -54,6 +55,15 @@ export default Vue.extend({
       window.addEventListener('resize', () => {
         this.getVh()
       })
+      window.addEventListener(
+        'load',
+        function () {
+          setTimeout(function () {
+            scrollTo(0, 1)
+          }, 100)
+        },
+        false
+      )
     },
   },
 })
@@ -63,15 +73,21 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    min-height: 100vh;
-    height: 100vh;
     padding: 10px;
     @include stripe();
+    min-height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      min-height: -webkit-fill-available;
+    }
   }
 
   &-cont {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      min-height: -webkit-fill-available;
+    }
+
     position: relative;
     // border: 2px solid $brown_dark1;
   }
@@ -79,6 +95,10 @@ export default Vue.extend({
   &-inr {
     position: relative;
     z-index: 2;
+    min-height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      min-height: -webkit-fill-available;
+    }
   }
 }
 </style>
