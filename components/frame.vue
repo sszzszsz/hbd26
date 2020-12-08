@@ -44,11 +44,11 @@
         </mask>
         <!-- with this mask applied, we "punch" a heart shape hole into the circle -->
         <rect x="0" y="0" class="m-frame__bg" />
-        <image
+        <!-- <image
           v-if="this.$store.state.global.pageName === 'index'"
           xlink:href="@/assets/img/bg.png"
           class="m-frame__img"
-        />
+        /> -->
       </g>
     </svg>
   </div>
@@ -124,11 +124,6 @@ export default Vue.extend({
       width: 100%;
       height: 100%;
     }
-  }
-  &__test {
-    @extend .m-frame__bg;
-    fill: none;
-    background: url('~@/assets/img/bg.png');
   }
   &__img {
     display: block;

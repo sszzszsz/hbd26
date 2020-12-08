@@ -11,6 +11,7 @@ const site = {
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
+  target: 'static', // default is 'server'
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -32,6 +33,7 @@ export default {
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
     link: [
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/icon/apple-touch-icon.png' },
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/icon/favicon-16x16.png' },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon/favicon-32x32.png' },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },

@@ -13,7 +13,9 @@
     <div ref="l-cont" class="l-cont">
       <frame />
       <div class="l-inr">
-        <Nuxt />
+        <transition name="page" @after-enter="afterEnter">
+          <Nuxt />
+        </transition>
       </div>
     </div>
   </div>
@@ -64,6 +66,9 @@ export default Vue.extend({
         },
         false
       )
+    },
+    afterEnter(el) {
+      console.log('enter')
     },
   },
 })
