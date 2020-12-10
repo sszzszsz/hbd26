@@ -1,55 +1,109 @@
 <template>
-  <div>
-    <Nuxt />
+  <div
+    :class="[
+      this.$route.name,
+      this.$route.params.id,
+      [$ua.browser() == 'Internet Explorer' ? 'IE' : $ua.browser()],
+      [$ua.isFromPc() == true ? 'PC' : null],
+      [$ua.isFromTablet() == true ? 'TB' : null],
+      [$ua.isFromSmartphone() == true ? 'SP' : null],
+    ]"
+    class="l-wrap"
+  >
+    <div ref="l-cont" class="l-cont">
+      <frame />
+      <div class="l-inr">
+        <transition name="page" @after-enter="afterEnter">
+          <Nuxt />
+        </transition>
+      </div>
+    </div>
   </div>
 </template>
+<script>
+import Vue from 'vue'
+import frame from '~/components/frame.vue'
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+export default Vue.extend({
+  components: {
+    frame,
+  },
+  data() {
+    return {
+      vh: 0,
+      ipadFlag: false,
+      browser: '',
+      classList: '',
+    }
+  },
+  created() {
+    this.browser = this.$ua.browser()
+    if (this.browser === 'Internet Explorer') {
+      this.browser = 'IE'
+    }
+    this.$store.dispatch('global/writePageName', this.$route.name)
+    this.$store.dispatch('global/writeBrowser', this.browser)
+  },
+  mounted() {
+    this.getVh()
+    this.setEventLister()
+  },
+  methods: {
+    getVh() {
+      this.vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${this.vh}px`)
+    },
+    setEventLister() {
+      window.addEventListener('resize', () => {
+        this.getVh()
+      })
+      window.addEventListener(
+        'load',
+        function () {
+          setTimeout(function () {
+            scrollTo(0, 1)
+          }, 100)
+        },
+        false
+      )
+    },
+    afterEnter(el) {
+      console.log('enter')
+    },
+  },
+})
+</script>
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
+<style lang="scss" scoped>
+.l {
+  &-wrap {
+    position: relative;
+    padding: 10px;
+    @include stripe();
+    min-height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      min-height: -webkit-fill-available;
+    }
+  }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+  &-cont {
+    width: 100%;
+    min-height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      min-height: -webkit-fill-available;
+    }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+    position: relative;
+    // border: 2px solid $brown_dark1;
+  }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+  &-inr {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    @supports (-webkit-touch-callout: none) {
+      min-height: -webkit-fill-available;
+    }
+  }
 }
 </style>

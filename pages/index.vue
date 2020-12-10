@@ -1,63 +1,74 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">hbd26</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <main class="l-main">
+    <star />
+    <div class="l-main__cont">
+      <div class="p-title">
+        <div class="p-logo">
+          <img src="@/assets/img/logo_top.svg" alt="" />
+        </div>
+        <h1 class="p-title__txt">SPECAIL<br />TICKET</h1>
+      </div>
+      <div class="m-btn m-btn--bw">
+        <NuxtLink to="/ticket/" class="m-btn__inr">
+          <span class="m-btn__txt m-btn__txt--main">TICKET LIST</span>
+          <span class="m-btn__txt m-btn__txt--sub">チケット一覧</span>
+        </NuxtLink>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
-export default {}
+import Vue from 'vue'
+import star from '~/components/star.vue'
+
+export default Vue.extend({
+  components: {
+    star,
+  },
+  data() {
+    return {}
+  },
+  created() {},
+  mounted() {
+    this.init()
+  },
+  methods: {
+    init() {
+      console.log('init')
+    },
+  },
+})
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+<style lang="scss" scoped>
+.l-main {
+  &__cont {
+    position: relative;
+    width: 100%;
+    z-index: 10;
+    mix-blend-mode: color-burn;
+  }
 }
+.p {
+  &-logo {
+    text-align: center;
+    margin-bottom: 4vh;
+  }
+  &-title {
+    padding-top: 20vh;
+    margin-bottom: 6vh;
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+    &__txt {
+      @include josefin-b();
+      font-size: spfz(55px);
+      color: $brown_dark2;
+      text-align: center;
+      text-shadow: 0 0 10px #6c655db3;
+      line-height: 1.2;
+      letter-spacing: 0.07em;
+      padding-left: 0.3em;
+    }
+  }
 }
 </style>

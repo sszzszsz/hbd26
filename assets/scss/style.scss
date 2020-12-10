@@ -1,0 +1,115 @@
+@import '_reset.scss';
+
+html {
+  font-family: 'Noto Sans JP', '游ゴシック体', YuGothic, 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  word-spacing: 1px;
+  line-height: 1.5;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+  overflow-x: hidden;
+  overflow-y: auto;
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+}
+
+#__layout {
+  position: relative;
+}
+
+.m {
+  &-btn {
+    position: relative;
+    min-width: 242px;
+    width: 76%;
+    margin: 0 auto;
+
+    &__inr {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      padding: spvw(20px) 0 spvw(28px);
+      border-radius: 2px;
+
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 13px;
+        background: url('~@/assets/img/arw_right_dark.svg') no-repeat center;
+        position: absolute;
+        bottom: 10%;
+        left: 14%;
+      }
+    }
+
+    &__txt {
+      display: block;
+      text-align: center;
+      line-height: 1.2;
+      &--main {
+        @include josefin-b();
+        font-size: spfz(30px);
+        letter-spacing: 0.05em;
+      }
+      &--sub {
+        @include notosans-m();
+        font-size: spfz(12px);
+        opacity: 0.8;
+      }
+    }
+
+    &--wt {
+      .m-btn {
+        &__inr {
+          background: $brown_pale1;
+          box-shadow: 3px 3px 2px $brown_dark1;
+          color: $brown_dark2;
+        }
+        &__txt {
+          text-shadow: 0 0 4px #b3b0a7;
+        }
+      }
+    }
+
+    &--bw {
+      .m-btn {
+        &__inr {
+          background: $brown_dark1;
+          box-shadow: 3px 3px 2px $brown_dark2;
+          color: $brown_pale1;
+          &:after {
+            background: url('~@/assets/img/arw_right_pale.svg') no-repeat center;
+          }
+        }
+        &__txt {
+          text-shadow: 0 0 4px $brown_dark2;
+        }
+      }
+    }
+  }
+}
+
+.page-enter {
+  opacity: 0;
+}
+.page-enter-active {
+  transition: opacity 1s;
+}
