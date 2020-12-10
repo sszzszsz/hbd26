@@ -101,6 +101,7 @@ export default Vue.extend({
     position: relative;
     z-index: 2;
     min-height: 100vh;
+    padding: 4px;
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }

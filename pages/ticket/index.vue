@@ -1,20 +1,34 @@
 <template>
-  <main :class="{ dmy: isDmy }" class="l-main">
-    <p>Coming Soon...</p>
-    <div class="m-btn m-btn--bw">
-      <NuxtLink to="/" class="m-btn__inr">
-        <span class="m-btn__txt m-btn__txt--main">TOP</span>
-      </NuxtLink>
+  <main class="l-main">
+    <star />
+    <div class="l-main__cont">
+      <div class="m-ttl">
+        <div class="m-ttl__logo">
+          <img src="@/assets/img/logo_top.svg" alt="HAPPY BIRTHDAY 26th" />
+        </div>
+        <h1 class="m-ttl__txt"><span>SPECAIL TICKET</span></h1>
+      </div>
+      <ul class="p-ticket__list">
+        <li class="m-ticket">
+          <ticket />
+        </li>
+      </ul>
     </div>
   </main>
 </template>
 <script>
 import Vue from 'vue'
+import star from '~/components/star.vue'
+import ticket from '~/components/ticket.vue'
 
 export default Vue.extend({
+  components: {
+    star,
+    ticket,
+  },
   data() {
     return {
-      isDmy: true,
+      isDmy: false,
     }
   },
   created() {},
@@ -56,5 +70,12 @@ export default Vue.extend({
       padding: spvw(20px) 0 spvw(20px);
     }
   }
+  &__cont {
+    position: relative;
+    z-index: 50;
+  }
+}
+.p-ticket__list {
+  padding: 10px;
 }
 </style>
