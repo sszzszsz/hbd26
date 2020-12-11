@@ -4,7 +4,7 @@
     <div class="l-main__cont">
       <div class="p-title">
         <div class="p-logo">
-          <img src="@/assets/img/logo_top.svg" alt="" />
+          <img src="@/assets/img/logo_top.svg" alt="HAPPY BIRTHDAY 26th" />
         </div>
         <h1 class="p-title__txt">SPECAIL<br />TICKET</h1>
       </div>

@@ -33,8 +33,11 @@ body {
 #__layout {
   position: relative;
 }
-
+/*----------------------------------------*/
+// Module
+/*----------------------------------------*/
 .m {
+  // button
   &-btn {
     position: relative;
     min-width: 242px;
@@ -102,6 +105,43 @@ body {
         &__txt {
           text-shadow: 0 0 4px $brown_dark2;
         }
+      }
+    }
+  }
+
+  // page title
+  &-ttl {
+    text-align: center;
+    padding-top: spvw(24px);
+    &__logo {
+      text-align: center;
+      margin-bottom: spvw(13px);
+    }
+    &__txt {
+      position: relative;
+      display: inline-block;
+      @include josefin-b();
+      font-size: spfz(28px);
+      color: $brown_dark2;
+      text-align: center;
+      line-height: 1.2;
+      span {
+        position: relative;
+        display: inline-block;
+        z-index: 110;
+      }
+
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 110%;
+        height: spvw(12px);
+        background: $brown_pale3;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-5%);
+        z-index: 100;
       }
     }
   }
