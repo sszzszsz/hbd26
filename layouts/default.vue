@@ -78,7 +78,7 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    padding: 10px;
+    padding: spvw(6px);
     @include stripe();
     min-height: 100vh;
     @supports (-webkit-touch-callout: none) {

@@ -8,8 +8,104 @@ export const state = () => ({
   pageTransition: 1,
   scrollFlag: true,
   pageParam: 0,
-  mX: 0,
-  mY: 0,
+  ticketsInfo: [
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+    {
+      date: null,
+      use: false,
+    },
+  ],
 })
 
 // 状態を変更する処理は mutationとしてexportする
@@ -38,11 +134,10 @@ export const mutations = {
   setPageParam(state, value) {
     state.pageParam = value
   },
-  setmX(state, value) {
-    state.mX = value
-  },
-  setmY(state, value) {
-    state.mY = value
+  setTicketsInfo(state, value) {
+    state.ticketsInfo = value
+    // localStorageの更新を行う
+    localStorage.setItem('ticketsInfo', JSON.stringify(value))
   },
 }
 
@@ -73,10 +168,7 @@ export const actions = {
   writePageParam(context, value) {
     context.commit('setPageParam', value)
   },
-  writemX(context, value) {
-    context.commit('setmX', value)
-  },
-  writemY(context, value) {
-    context.commit('setmY', value)
+  writeTicketsInfo(context, value) {
+    context.commit('setTicketsInfo', value)
   },
 }

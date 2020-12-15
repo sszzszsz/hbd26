@@ -1,20 +1,62 @@
-<template class="m-ticket">
-  <nuxt-link to="" class="m-ticket__inr">
-    <dl class="m-ticket__box">
-      <dt class="m-ticket__num">
-        <span class="m-ticket__numTxt">TICKET 01</span>
-      </dt>
-      <dd class="m-ticket__dtl">
-        <p class="m-ticket__ttl">XXXXXXXXXXXX</p>
-        <p class="m-ticket__date">DeadLine : 2020/12/31</p>
-      </dd>
-    </dl>
-    <div class="m-ticket__limit">
-      <span class="m-ticket__limitTxt">ONLY ONCE</span>
+<template>
+  <div class="m-ticket">
+    <nuxt-link to="" class="m-ticket__inr">
+      <img :src="renderImg(`bg_ticket_${id}.svg`)" class="m-ticket__bg" />
+      <dl class="m-ticket__box">
+        <dt class="m-ticket__num">
+          <span class="m-ticket__numTxt">TICKET {{ num }}</span>
+        </dt>
+        <dd class="m-ticket__dtl">
+          <p class="m-ticket__ttl">{{ ttl }}</p>
+          <p class="m-ticket__date">DeadLine : 2020/12/31</p>
+        </dd>
+      </dl>
+      <div class="m-ticket__limit">
+        <span class="m-ticket__limitTxt">ONLY ONCE</span>
+      </div>
+    </nuxt-link>
+    <div class="m-ticket--used">
+      <p>USED</p>
     </div>
-  </nuxt-link>
+  </div>
 </template>
+<script>
+import Vue from 'vue'
 
+export default Vue.extend({
+  props: {
+    id: {
+      type: String, // String型に限定
+      required: true, // 必須項目
+    },
+    ttl: {
+      type: String,
+      required: true,
+    },
+    num: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      isDmy: false,
+    }
+  },
+  created() {},
+  mounted() {
+    this.init()
+  },
+  methods: {
+    init() {
+      console.log('init')
+    },
+    renderImg(file) {
+      return require('@/assets/img/' + file)
+    },
+  },
+})
+</script>
 <style lang="scss">
 .m {
   &-ticket {
@@ -23,8 +65,10 @@
     border: 1px solid $brown_dark2;
     border-right: none;
     width: calc(100% - 15px);
-    height: 95px;
+    height: 96px;
     display: flex;
+    box-shadow: 1px 2px 3px #6c655d6e;
+
     &:after {
       display: block;
       content: '';
@@ -39,16 +83,28 @@
       right: -14px;
     }
 
+    &--used {
+      display: none;
+    }
+
+    &__bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+    }
+
     &__inr {
       display: flex;
       justify-content: space-between;
-      background: $brown_pale2;
+      background: #fdfcf8;
       border: 1px solid $brown_dark2;
       width: calc(100% - 16px);
       margin: 8px auto;
-      padding: 5px 12px;
       color: $brown_dark2;
       text-decoration: none;
+      position: relative;
+      z-index: 2;
 
       &:before {
         display: block;
@@ -59,8 +115,8 @@
         background-repeat: no-repeat;
         background-size: contain;
         position: absolute;
-        top: 5px;
-        left: 2px;
+        top: -4px;
+        left: -7px;
       }
       &:after {
         display: block;
@@ -71,11 +127,13 @@
         background-repeat: no-repeat;
         background-size: contain;
         position: absolute;
-        top: 5px;
-        right: 3px;
+        top: -4px;
+        right: -6px;
       }
     }
     &__box {
+      padding: 5px 12px;
+
       &:before {
         display: block;
         content: '';
@@ -85,8 +143,8 @@
         background-repeat: no-repeat;
         background-size: contain;
         position: absolute;
-        bottom: 6px;
-        left: 3px;
+        bottom: -3px;
+        left: -7px;
       }
       &:after {
         display: block;
@@ -97,8 +155,8 @@
         background-repeat: no-repeat;
         background-size: contain;
         position: absolute;
-        bottom: 6px;
-        right: 3px;
+        bottom: -3px;
+        right: -6px;
       }
     }
     &__num {
@@ -129,16 +187,20 @@
     }
     &__ttl {
       padding: 0.3em 0;
-      @include notosans-m();
-      font-size: spfz(15px);
+      @include notosans-b();
+      font-size: spfz(14px);
     }
     &__date {
-      @include josefin-b();
+      @include josefin-r();
       font-size: spfz(12px);
     }
     &__limit {
-      width: 16%;
+      width: 12%;
       position: relative;
+      padding: 5px 12px;
+      background-image: url('~@/assets/img/line_dot.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
     }
     &__limitTxt {
       display: block;
@@ -146,9 +208,45 @@
       font-size: spfz(10px);
       transform: rotate(-90deg);
       position: absolute;
-      top: 38%;
-      left: 0%;
+      top: 40%;
+      left: -38%;
       white-space: nowrap;
+    }
+  }
+}
+
+.is-used .m-ticket {
+  &--used {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #6c655db0;
+    border: 1px solid $brown_dark2;
+    border-right: none;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    &:after {
+      display: block;
+      content: '';
+      width: 17px;
+      height: calc(100% + 2px);
+      background-image: url('~@/assets/img/bg_ticket_used_edge.svg');
+      background-repeat: repeat-y;
+      background-size: 15px 19px;
+      background-position: top right;
+      position: absolute;
+      top: -1px;
+      right: -15px;
+    }
+
+    p {
+      @include josefin-b();
+      color: #e4e2d9;
+      opacity: 0.8;
+      font-size: spfz(40px);
     }
   }
 }
