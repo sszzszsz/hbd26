@@ -6,7 +6,7 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 
 const site = {
   title: 'SPECIAL TICKETS | Happy BirthDay 26th',
-  titleDes: 'Happy 27th birthday',
+  titleDes: 'Happy 26th birthday!- お願いを聞いてあげる券',
 }
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
