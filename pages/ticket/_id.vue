@@ -53,7 +53,14 @@
 
         <section>
           <p class="p-hope--txt">希望がある場合、以下に記入してください</p>
-          <textarea id="hope" class="p-hope--txtarea" name="hope" cols="5" rows="10" />
+          <textarea
+            id="hope"
+            v-model="content"
+            class="p-hope--txtarea"
+            name="content"
+            cols="5"
+            rows="10"
+          />
 
           <div class="m-btn m-btn--bw">
             <button type="submit" class="m-btn__inr" @click="submit()">
@@ -68,8 +75,10 @@
         <p>サンクス</p>
       </div>
 
-      <form name="ticket" netlify netlify-honeypot="bot-field" hidden>
-        <textarea name="hope" />
+      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="content" />
       </form>
     </div>
   </main>
@@ -96,7 +105,7 @@ export default Vue.extend({
       detail: null,
       rules: null,
       isSubmit: false,
-      hope: '',
+      content: '',
     }
   },
   created() {
@@ -171,7 +180,7 @@ export default Vue.extend({
       console.log('send')
       const params = new URLSearchParams()
       params.append('form-name', 'ticket') // Forms使うのに必要
-      params.append('hope', this.hope)
+      params.append('content', this.content)
       axios.post('/', params).then(() => {
         this.isSubmit = true
       })
