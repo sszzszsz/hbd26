@@ -75,7 +75,8 @@
         <p>サンクス</p>
       </div>
 
-      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <form name="contact" method="POST" netlify netlify-honeypot="bot-field" hidden>
+        <input type="hidden" name="form-name" value="contact" />
         <input type="text" name="name" />
         <input type="email" name="email" />
         <textarea name="message" />
