@@ -18,7 +18,7 @@
         class="js-scroll"
       />
 
-      <form id="ticket" action="" method="post" data-netlify="true" name="ticket">
+      <form id="ticket" action="" method="post" data-netlify="true" name="ticket" @submit.prevent>
         <section class="p-sec">
           <div class="m-secTtl">
             <span class="m-secTtl--sub"
@@ -56,7 +56,7 @@
           <textarea id="hope" class="p-hope--txtarea" name="hope" cols="5" rows="10" />
 
           <div class="m-btn m-btn--bw">
-            <button type="submit" class="m-btn__inr">
+            <button type="submit" class="m-btn__inr" @click="submit()">
               <span class="m-btn__txt m-btn__txt--main">REQUEST</span>
               <span class="m-btn__txt m-btn__txt--sub">お願いする</span>
             </button>
@@ -154,6 +154,11 @@ export default Vue.extend({
       body.addEventListener('afterEnter', () => {
         self.obserber()
       })
+    },
+
+    submit() {
+      console.log('send')
+      this.$router.push('/')
     },
   },
 })
