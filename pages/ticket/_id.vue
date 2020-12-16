@@ -18,7 +18,15 @@
         class="js-scroll"
       />
 
-      <form v-if="isSubmit === false" id="ticket" @submit.prevent>
+      <form
+        v-if="isSubmit === false"
+        id="ticket"
+        name="contact"
+        method="POST"
+        netlify
+        netlify-honeypot="bot-field"
+        @submit.prevent
+      >
         <section class="p-sec">
           <div class="m-secTtl">
             <span class="m-secTtl--sub"
@@ -73,14 +81,8 @@
 
       <div v-if="isSubmit === true">
         <p>サンクス</p>
+        <p><nuxt-link to="/" v-text="'TOPへ'" /></p>
       </div>
-
-      <form name="contact" method="POST" netlify netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <textarea name="message" />
-      </form>
     </div>
   </main>
 </template>
@@ -106,7 +108,11 @@ export default Vue.extend({
       detail: null,
       rules: null,
       isSubmit: false,
-      message: '',
+      form: {
+        name: 'Suzu Nagano',
+        email: 'sszz12121994@gmail.com',
+        message: '',
+      },
     }
   },
   created() {
@@ -176,15 +182,28 @@ export default Vue.extend({
         self.obserber()
       })
     },
-
+    encode(data) {
+      return Object.keys(data)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        .join('&')
+    },
     submit() {
       console.log('send')
-      const params = new URLSearchParams()
-      params.append('form-name', 'contact') // Forms使うのに必要
-      params.append('message', this.message)
-      axios.post('/', params).then(() => {
-        this.isSubmit = true
-      })
+      const axiosConfig = {
+        header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+      axios
+        .post(
+          '/',
+          this.encode({
+            'form-name': 'contact',
+            ...this.form,
+          }),
+          axiosConfig
+        )
+        .then(() => {
+          this.isSubmit = true
+        })
     },
   },
 })
