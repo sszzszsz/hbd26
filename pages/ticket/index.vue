@@ -160,10 +160,6 @@ export default Vue.extend({
   }
 }
 .p-ticket {
-  &__list {
-    padding: spvw(10px) spvw(10px) spvw(30px);
-  }
-
   &__item {
     margin-top: spvw(10px);
   }

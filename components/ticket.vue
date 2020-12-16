@@ -90,7 +90,7 @@ export default Vue.extend({
     border: 1px solid $brown_dark2;
     border-right: none;
     width: calc(100% - 7px);
-    height: 96px;
+    height: spvw(96px);
     display: flex;
     box-shadow: 1px 2px 3px #6c655d6e;
     z-index: 50;
@@ -127,7 +127,7 @@ export default Vue.extend({
       background: #fdfcf8;
       border: 1px solid $brown_dark2;
       width: calc(100% - 16px);
-      margin: 8px auto;
+      margin: spvw(8px) auto;
       color: $brown_dark2;
       text-decoration: none;
       position: relative;
@@ -226,7 +226,7 @@ export default Vue.extend({
     &__limit {
       width: 12%;
       position: relative;
-      padding: 5px 12px;
+      padding: spvw(5px) spvw(12px);
       background-image: url('~@/assets/img/line_dot.svg');
       background-repeat: no-repeat;
       background-size: contain;

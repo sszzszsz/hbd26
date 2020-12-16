@@ -82,8 +82,8 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    padding: spvw(12px) spvw(10px);
-    // @include stripe();
+    padding: spvw(12px) spvw(12px);
+    overflow: hidden;
     min-height: 100vh;
     background-color: $brown_pale1;
     background-image: linear-gradient(
@@ -126,7 +126,7 @@ export default Vue.extend({
     position: relative;
     z-index: 2;
     min-height: 100vh;
-    padding: spvw(10px);
+    padding: spvw(12px);
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
