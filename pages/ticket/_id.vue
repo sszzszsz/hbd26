@@ -20,7 +20,6 @@
 
       <form
         v-if="isSubmit === false"
-        id="ticket"
         name="contact"
         method="POST"
         netlify
@@ -90,7 +89,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import ticketLists from '../../assets/tickets.json'
+import ticketLists from '~/assets/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
 

@@ -35,7 +35,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import ticketLists from '../../assets/tickets.json'
+import ticketLists from '~/assets/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
 
