@@ -106,6 +106,7 @@ export const state = () => ({
       use: false,
     },
   ],
+  clickedTicket: 0,
 })
 
 // 状態を変更する処理は mutationとしてexportする
@@ -138,6 +139,9 @@ export const mutations = {
     state.ticketsInfo = value
     // localStorageの更新を行う
     localStorage.setItem('ticketsInfo', JSON.stringify(value))
+  },
+  setClickTicket(state, value) {
+    state.clickedTicket = value
   },
 }
 

@@ -45,6 +45,7 @@ export default Vue.extend({
     this.$store.dispatch('global/writeBrowser', this.browser)
   },
   mounted() {
+    console.log('default')
     this.getVh()
     this.setEventLister()
   },
@@ -69,6 +70,9 @@ export default Vue.extend({
     },
     afterEnter(el) {
       console.log('enter')
+      const body = document.getElementById('__nuxt')
+      const event = new CustomEvent('afterEnter')
+      body.dispatchEvent(event)
     },
   },
 })
@@ -78,9 +82,31 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    padding: spvw(6px);
-    @include stripe();
+    padding: spvw(12px) spvw(10px);
+    // @include stripe();
     min-height: 100vh;
+    background-color: $brown_pale1;
+    background-image: linear-gradient(
+        -45deg,
+        #6c655d80 25%,
+        transparent 25%,
+        transparent 50%,
+        #6c655d80 50%,
+        #6c655d80 75%,
+        transparent 75%,
+        transparent 100%
+      ),
+      linear-gradient(
+        45deg,
+        #6c655d80 25%,
+        transparent 25%,
+        transparent 50%,
+        #6c655d80 50%,
+        #6c655d80 75%,
+        transparent 75%,
+        transparent 100%
+      );
+    background-size: 30px 30px;
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
@@ -89,19 +115,18 @@ export default Vue.extend({
   &-cont {
     width: 100%;
     min-height: 100vh;
+    position: relative;
+
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
-
-    position: relative;
-    // border: 2px solid $brown_dark1;
   }
 
   &-inr {
     position: relative;
     z-index: 2;
     min-height: 100vh;
-    padding: 4px;
+    padding: spvw(10px);
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }

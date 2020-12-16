@@ -8,16 +8,26 @@
         </div>
         <h1 class="m-ttl__txt"><span>SPECAIL TICKET</span></h1>
       </div>
-      <p class="p-ticket__count">今月の残り使用回数{{ usecount }}回</p>
+      <p class="p-ticket__count">
+        今月の残り使用回数<span>{{ usecount }}</span
+        >回
+      </p>
       <ul class="p-ticket__list">
         <li
-          v-for="ticket in tickets"
+          v-for="(ticket, index) in tickets"
           :id="`${ticket.id}${ticket.num}`"
           :key="ticket.num"
           ref="ticket"
           class="p-ticket__item js-ticket"
+          @pointerdown="clickTicket(index + 1)"
         >
-          <ticket :id="ticket.id" :num="ticket.num" :ttl="ticket.ttl" />
+          <ticket
+            :id="ticket.id"
+            :index="index + 1"
+            :num="ticket.num"
+            :ttl="ticket.ttl"
+            :link-frag="true"
+          />
         </li>
       </ul>
     </div>
@@ -47,9 +57,12 @@ export default Vue.extend({
   mounted() {
     this.init()
   },
+  beforeDestroy() {
+    console.log('🏂 チケット一覧 beforeDestroy')
+  },
   methods: {
     init() {
-      console.log('init')
+      console.log('🏂 チケット一覧')
       this.obserber()
       this.setUsedClass()
     },
@@ -79,7 +92,7 @@ export default Vue.extend({
       function doWhenIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-inter')
+            entry.target.classList.add('is-view')
           }
         })
       }
@@ -105,6 +118,10 @@ export default Vue.extend({
           this.usecount -= usecount
         }
       })
+    },
+    clickTicket(index) {
+      console.log('click', index)
+      this.$store.commit('global/setClickTicket', index)
     },
   },
 })
@@ -139,22 +156,31 @@ export default Vue.extend({
   }
   &__cont {
     position: relative;
-    z-index: 50;
+    z-index: 10;
   }
 }
 .p-ticket {
   &__list {
-    padding: 10px;
+    padding: spvw(10px) spvw(10px) spvw(30px);
   }
 
   &__item {
-    margin-top: 10px;
+    margin-top: spvw(10px);
   }
 
   &__count {
     margin: 1em auto 0;
     text-align: center;
     font-size: spfz(14px);
+    color: $brown_dark2;
+    span {
+      display: inline-block;
+      padding: 0 0.2em;
+      color: transparent;
+      @include josefin-b();
+      font-size: spfz(30px);
+      -webkit-text-stroke: 1px $brown_dark2;
+    }
   }
 }
 </style>

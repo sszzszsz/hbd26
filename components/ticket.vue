@@ -1,6 +1,6 @@
 <template>
   <div class="m-ticket">
-    <nuxt-link to="" class="m-ticket__inr">
+    <nuxt-link v-if="linkFrag == true" :to="`/ticket/${index}/`" class="m-ticket__inr">
       <img :src="renderImg(`bg_ticket_${id}.svg`)" class="m-ticket__bg" />
       <dl class="m-ticket__box">
         <dt class="m-ticket__num">
@@ -15,6 +15,23 @@
         <span class="m-ticket__limitTxt">ONLY ONCE</span>
       </div>
     </nuxt-link>
+
+    <div v-else class="m-ticket__inr">
+      <img :src="renderImg(`bg_ticket_${id}.svg`)" class="m-ticket__bg" />
+      <dl class="m-ticket__box">
+        <dt class="m-ticket__num">
+          <span class="m-ticket__numTxt">TICKET {{ num }}</span>
+        </dt>
+        <dd class="m-ticket__dtl">
+          <p class="m-ticket__ttl">{{ ttl }}</p>
+          <p class="m-ticket__date">DeadLine : 2020/12/31</p>
+        </dd>
+      </dl>
+      <div class="m-ticket__limit">
+        <span class="m-ticket__limitTxt">ONLY ONCE</span>
+      </div>
+    </div>
+
     <div class="m-ticket--used">
       <p>USED</p>
     </div>
@@ -28,6 +45,14 @@ export default Vue.extend({
     id: {
       type: String, // String型に限定
       required: true, // 必須項目
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+    linkFrag: {
+      type: Boolean,
+      required: true,
     },
     ttl: {
       type: String,
@@ -49,7 +74,7 @@ export default Vue.extend({
   },
   methods: {
     init() {
-      console.log('init')
+      console.log('🐣 ticket')
     },
     renderImg(file) {
       return require('@/assets/img/' + file)
@@ -64,10 +89,11 @@ export default Vue.extend({
     background: #e4e2d9;
     border: 1px solid $brown_dark2;
     border-right: none;
-    width: calc(100% - 15px);
+    width: calc(100% - 7px);
     height: 96px;
     display: flex;
     box-shadow: 1px 2px 3px #6c655d6e;
+    z-index: 50;
 
     &:after {
       display: block;
@@ -91,7 +117,8 @@ export default Vue.extend({
       position: absolute;
       bottom: 0;
       left: 0;
-      z-index: 1;
+      z-index: 51;
+      opacity: 0.7;
     }
 
     &__inr {
@@ -104,7 +131,7 @@ export default Vue.extend({
       color: $brown_dark2;
       text-decoration: none;
       position: relative;
-      z-index: 2;
+      z-index: 52;
 
       &:before {
         display: block;
@@ -132,7 +159,8 @@ export default Vue.extend({
       }
     }
     &__box {
-      padding: 5px 12px;
+      padding: spvw(5px) spvw(8px) spvw(5px) spvw(12px);
+      width: 88%;
 
       &:before {
         display: block;
@@ -186,13 +214,14 @@ export default Vue.extend({
       flex-shrink: 0;
     }
     &__ttl {
-      padding: 0.3em 0;
+      padding: 0.3em 0 0.8em;
       @include notosans-b();
       font-size: spfz(14px);
     }
     &__date {
       @include josefin-r();
       font-size: spfz(12px);
+      text-align: right;
     }
     &__limit {
       width: 12%;
@@ -227,7 +256,7 @@ export default Vue.extend({
     border-right: none;
     position: absolute;
     top: 0;
-    z-index: 3;
+    z-index: 53;
     &:after {
       display: block;
       content: '';
