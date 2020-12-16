@@ -18,49 +18,51 @@
         class="js-scroll"
       />
 
-      <section class="p-sec">
-        <div class="m-secTtl">
-          <span class="m-secTtl--sub"
-            ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
-          >
-          <h2 class="m-secTtl--main">DETAIL</h2>
-        </div>
-        <p class="p-detail--txt">{{ detail }}</p>
-      </section>
-
-      <section class="p-sec--skew">
-        <div class="p-sec--inr">
+      <form id="ticket" action="" method="post" data-netlify="true" name="ticket">
+        <section class="p-sec">
           <div class="m-secTtl">
             <span class="m-secTtl--sub"
               ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
             >
-            <h2 class="m-secTtl--main">AGREEMENT</h2>
+            <h2 class="m-secTtl--main">DETAIL</h2>
           </div>
-          <ul class="p-agrList">
-            <li v-for="(rule, index) in rules" :key="index" class="p-agrList--item">
-              <span>{{ rule }}</span>
-            </li>
-          </ul>
-          <div class="p-checkBox">
-            <label for="agree" class="p-checkBox--label">
-              <input id="agree" type="checkbox" />
-              <span class="p-checkBox--txt">上記に同意する</span>
-            </label>
+          <p class="p-detail--txt">{{ detail }}</p>
+        </section>
+
+        <section class="p-sec--skew">
+          <div class="p-sec--inr">
+            <div class="m-secTtl">
+              <span class="m-secTtl--sub"
+                ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
+              >
+              <h2 class="m-secTtl--main">AGREEMENT</h2>
+            </div>
+            <ul class="p-agrList">
+              <li v-for="(rule, index) in rules" :key="index" class="p-agrList--item">
+                <span>{{ rule }}</span>
+              </li>
+            </ul>
+            <div class="p-checkBox">
+              <label for="agree" class="p-checkBox--label">
+                <input id="agree" type="checkbox" />
+                <span class="p-checkBox--txt">上記に同意する</span>
+              </label>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section>
-        <p class="p-hope--txt">希望がある場合、以下に記入してください</p>
-        <textarea id="hope" class="p-hope--txtarea" name="hope" cols="5" rows="10" />
+        <section>
+          <p class="p-hope--txt">希望がある場合、以下に記入してください</p>
+          <textarea id="hope" class="p-hope--txtarea" name="hope" cols="5" rows="10" />
 
-        <div class="m-btn m-btn--bw">
-          <NuxtLink to="/ticket/" class="m-btn__inr">
-            <span class="m-btn__txt m-btn__txt--main">REQUEST</span>
-            <span class="m-btn__txt m-btn__txt--sub">お願いする</span>
-          </NuxtLink>
-        </div>
-      </section>
+          <div class="m-btn m-btn--bw">
+            <button type="submit" class="m-btn__inr">
+              <span class="m-btn__txt m-btn__txt--main">REQUEST</span>
+              <span class="m-btn__txt m-btn__txt--sub">お願いする</span>
+            </button>
+          </div>
+        </section>
+      </form>
     </div>
   </main>
 </template>
@@ -271,6 +273,7 @@ export default Vue.extend({
     min-height: 150px;
     overflow-y: auto;
     margin-bottom: 1em;
+    color: $brown_dark2;
   }
 }
 .js-scroll {
