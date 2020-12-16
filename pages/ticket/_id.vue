@@ -18,7 +18,7 @@
         class="js-scroll"
       />
 
-      <form id="ticket" action="" method="post" data-netlify="true" name="ticket" @submit.prevent>
+      <form v-if="isSubmit === false" id="ticket" @submit.prevent>
         <section class="p-sec">
           <div class="m-secTtl">
             <span class="m-secTtl--sub"
@@ -63,12 +63,21 @@
           </div>
         </section>
       </form>
+
+      <div v-if="isSubmit === true">
+        <p>サンクス</p>
+      </div>
+
+      <form name="ticket" netlify netlify-honeypot="bot-field" hidden>
+        <textarea name="hope" />
+      </form>
     </div>
   </main>
 </template>
 
 <script>
 import Vue from 'vue'
+import axios from 'axios'
 import ticketLists from '../../assets/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
@@ -86,6 +95,8 @@ export default Vue.extend({
       ttl: null,
       detail: null,
       rules: null,
+      isSubmit: false,
+      hope: '',
     }
   },
   created() {
@@ -158,11 +169,17 @@ export default Vue.extend({
 
     submit() {
       console.log('send')
-      this.$router.push('/')
+      const params = new URLSearchParams()
+      params.append('form-name', 'ticket') // Forms使うのに必要
+      params.append('hope', this.hope)
+      axios.post('/', params).then(() => {
+        this.isSubmit = true
+      })
     },
   },
 })
 </script>
+
 <style lang="scss" scoped>
 .l-main {
   &__cont {
