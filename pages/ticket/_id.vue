@@ -108,11 +108,7 @@ export default Vue.extend({
       detail: null,
       rules: null,
       isSubmit: false,
-      form: {
-        name: 'Suzu Nagano',
-        email: 'sszz12121994@gmail.com',
-        message: '',
-      },
+      message: '',
     }
   },
   created() {
@@ -197,7 +193,8 @@ export default Vue.extend({
           '/',
           this.encode({
             'form-name': 'contact',
-            ...this.form,
+            ticketName: this.ttl,
+            messege: this.message,
           }),
           axiosConfig
         )
