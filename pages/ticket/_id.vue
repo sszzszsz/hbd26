@@ -61,7 +61,7 @@
         <section>
           <p class="p-hope--txt">希望がある場合、以下に記入してください</p>
           <textarea
-            id="hope"
+            id="message"
             v-model="message"
             class="p-hope--txtarea"
             name="message"
