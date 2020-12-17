@@ -21,7 +21,6 @@
       <form
         v-if="isSubmit === false"
         name="contact"
-        method="POST"
         netlify
         netlify-honeypot="bot-field"
         @submit.prevent
@@ -186,19 +185,17 @@ export default Vue.extend({
       const formData = {
         'form-name': 'contact',
         ticketName: this.ttl,
-        messege: this.message,
+        message: this.message,
       }
-      console.log(this.encode(formData))
-      axios
-        .post({
-          method: 'post',
-          url: '/',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          data: this.encode(formData),
-        })
-        .then(() => {
-          this.isSubmit = true
-        })
+      const axiosConfig = {
+        header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      }
+
+      console.log(formData)
+
+      axios.post('/', this.encode(formData), axiosConfig).then(() => {
+        this.isSubmit = true
+      })
     },
   },
 })
