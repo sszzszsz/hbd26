@@ -32,7 +32,7 @@
       </ul>
     </div>
     <div v-if="monthLimitFlag === true" class="p-ticket__limited">
-      <p>上限です</p>
+      <p>上限です<br />また来月ご利用ください</p>
     </div>
   </main>
 </template>
@@ -230,8 +230,12 @@ export default Vue.extend({
     left: 0;
     width: 100vw;
     height: 100%;
-    background: $brown_dark2;
-    color: $brown_pale1;
+    background: #6c655dab;
+    color: #fdfaf3;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
