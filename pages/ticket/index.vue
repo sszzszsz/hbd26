@@ -130,8 +130,8 @@ export default Vue.extend({
      * 使用済みクラスを付与する
      */
     setUsedClass() {
-      this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
-        if (ticketInfo.use === true) {
+      this.$store.state.global.ticketsInfo.forEach((info, index) => {
+        if (info.use === true) {
           this.ticketListEl[index].classList.add('is-used')
         }
       })

@@ -220,11 +220,14 @@ export default Vue.extend({
     updateTicketsInfo() {
       const today = new Date()
       const curenntMonth = today.getMonth()
+      const arrNum = Number(this.$route.params.id) - 1
+      const globalTicketsInfo = this.$store.state.global.ticketsInfo
       console.log(curenntMonth)
 
-      this.$store.state.global.ticketsInfo[this.index].date = curenntMonth
-      this.$store.state.global.ticketsInfo[this.index].use = true
-      this.$store.dispatch('global/writeTicketsInfo', this.$store.state.global.ticketsInfo)
+      globalTicketsInfo[arrNum].date = curenntMonth
+      globalTicketsInfo[arrNum].use = true
+      console.log(globalTicketsInfo)
+      this.$store.dispatch('global/writeTicketsInfo', globalTicketsInfo)
     },
   },
 })
