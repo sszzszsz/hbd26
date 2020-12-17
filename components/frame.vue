@@ -44,9 +44,10 @@ export default Vue.extend({
   }
   &--mid {
     background: $brown_pale2;
+    background-image: url('~@/assets/img/paper_main.png');
     height: 100%;
-    border-left: spvw(2.4px) solid $brown_dark1;
-    border-right: spvw(2.4px) solid $brown_dark1;
+    border-left: spvw(2.4px) solid $brown_dark2;
+    border-right: spvw(2.4px) solid $brown_dark2;
   }
 }
 </style>

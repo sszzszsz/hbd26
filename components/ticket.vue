@@ -87,6 +87,8 @@ export default Vue.extend({
   &-ticket {
     position: relative;
     background: #e4e2d9;
+    background-image: url('~@/assets/img/paper_ticket_outer.png');
+
     border: 1px solid $brown_dark2;
     border-right: none;
     width: calc(100% - 7px);
@@ -125,6 +127,7 @@ export default Vue.extend({
       display: flex;
       justify-content: space-between;
       background: #fdfcf8;
+      background-image: url('~@/assets/img/paper_ticket_inr.png');
       border: 1px solid $brown_dark2;
       width: calc(100% - 16px);
       margin: spvw(8px) auto;
