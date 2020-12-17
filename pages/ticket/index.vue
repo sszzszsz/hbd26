@@ -1,7 +1,7 @@
 <template>
   <main class="l-main">
     <star />
-    <div class="l-main__cont">
+    <div class="l-main__cont" :class="{ 'is-limited': monthLimitFlag }">
       <div class="m-ttl">
         <div class="m-ttl__logo">
           <img src="@/assets/img/logo_top.svg" alt="HAPPY BIRTHDAY 26th" />
@@ -31,6 +31,9 @@
         </li>
       </ul>
     </div>
+    <div v-if="monthLimitFlag === true" class="p-ticket__limited">
+      <p>上限です</p>
+    </div>
   </main>
 </template>
 <script>
@@ -49,10 +52,11 @@ export default Vue.extend({
       isDmy: false,
       tickets: ticketLists,
       usecount: 2,
+      monthLimitFlag: false,
     }
   },
   created() {
-    this.getStorage()
+    // this.getStorage()
   },
   mounted() {
     this.init()
@@ -63,16 +67,17 @@ export default Vue.extend({
   methods: {
     init() {
       console.log('🏂 チケット一覧')
+      // 今回の交差を監視する要素
+      this.ticketListEl = document.querySelectorAll('.js-ticket')
+
       this.obserber()
-      this.setUsedClass()
+      this.getStorage()
     },
 
     /**
      * スクロール検知（IntersectionObserver）
      */
     obserber() {
-      // 今回の交差を監視する要素
-      this.ticketListEl = document.querySelectorAll('.js-ticket')
       const options = {
         root: document.querySelector('.l-inr'),
         rootMargin: '-3%',
@@ -104,37 +109,62 @@ export default Vue.extend({
     getStorage() {
       const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
       this.$store.dispatch('global/writeTicketsInfo', infos)
-    },
-
-    /**
-     * 使用済みクラスを付与する
-     */
-    setUsedClass() {
-      let usecount = 0
-
-      if (this.$store.state.global.ticketsInfo === null) {
+      // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
+      if (infos === null) {
         const arry = []
         const item = {
           date: null,
           use: false,
         }
         for (let i = 0; i < 24; i++) {
-          arry[i].add(item)
+          arry[i] = item
         }
         this.$store.dispatch('global/writeTicketsInfo', arry)
       } else {
-        this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
-          if (ticketInfo.use === true) {
-            this.ticketListEl[index].classList.add('is-used')
-            usecount++
-            this.usecount -= usecount
-          }
-        })
+        this.setUsedClass()
+        this.coucntMonthLimit()
       }
     },
+
+    /**
+     * 使用済みクラスを付与する
+     */
+    setUsedClass() {
+      this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
+        if (ticketInfo.use === true) {
+          this.ticketListEl[index].classList.add('is-used')
+        }
+      })
+    },
+    /**
+     * 今月の使用回数をカウントする
+     * 2回以上使用していた場合、当月は使用不可
+     */
+    coucntMonthLimit() {
+      const today = new Date()
+      const curenntMonth = today.getMonth()
+      let count = 0
+      this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
+        if (ticketInfo.date === curenntMonth) {
+          count++
+        }
+      })
+      this.usecount -= count
+      if (this.usecount === 0) {
+        this.monthLimitFlag = true
+      }
+    },
+    /**
+     * チケットクリック時
+     * 既に上限に達していた場合は遷移しない
+     */
     clickTicket(index) {
       console.log('click', index)
-      this.$store.commit('global/setClickTicket', index)
+      if (this.monthLimitFlag !== true) {
+        this.$store.commit('global/setClickTicket', index)
+      } else {
+        console.log('stop')
+      }
     },
   },
 })
@@ -173,6 +203,9 @@ export default Vue.extend({
   }
 }
 .p-ticket {
+  &__list {
+    padding-bottom: spvw(30px);
+  }
   &__item {
     margin-top: spvw(10px);
   }
@@ -190,6 +223,15 @@ export default Vue.extend({
       font-size: spfz(30px);
       -webkit-text-stroke: 1px $brown_dark2;
     }
+  }
+  &__limited {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: $brown_dark2;
+    color: $brown_pale1;
   }
 }
 </style>

@@ -50,7 +50,7 @@
             </ul>
             <div class="p-checkBox">
               <label for="agree" class="p-checkBox--label">
-                <input id="agree" type="checkbox" />
+                <input id="agree" v-model="checkBox" type="checkbox" @change="changeCheckBox()" />
                 <span class="p-checkBox--txt">上記に同意する</span>
               </label>
             </div>
@@ -106,6 +106,7 @@ export default Vue.extend({
       detail: null,
       rules: null,
       isSubmit: false,
+      checkBox: false,
       message: '',
     }
   },
@@ -176,11 +177,26 @@ export default Vue.extend({
         self.obserber()
       })
     },
+    /**
+     * 同意ボタン
+     */
+    changeCheckBox() {
+      console.log('changed')
+      this.checkBox = true
+    },
+    /**
+     * Ajaxで送信するようにエンコードする
+     * netlifyのフォームをAjaxで利用するためにはエンコードが必要
+     * https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
+     */
     encode(data) {
       return Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
         .join('&')
     },
+    /**
+     * リクエストボタン
+     */
     submit() {
       const formData = {
         'form-name': 'ticket',
@@ -190,12 +206,25 @@ export default Vue.extend({
       const axiosConfig = {
         header: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }
+      // 同意ボタンにチェックがついていたらAjaxで送信
+      if (this.checkBox) {
+        axios.post('/', this.encode(formData), axiosConfig).then(() => {
+          this.isSubmit = true
+          this.updateTicketsInfo()
+        })
+      }
+    },
+    /**
+     * WebStrorageの更新
+     */
+    updateTicketsInfo() {
+      const today = new Date()
+      const curenntMonth = today.getMonth()
+      console.log(curenntMonth)
 
-      console.log(formData)
-
-      axios.post('/', this.encode(formData), axiosConfig).then(() => {
-        this.isSubmit = true
-      })
+      this.$store.state.global.ticketsInfo[this.index].date = curenntMonth
+      this.$store.state.global.ticketsInfo[this.index].use = true
+      this.$store.dispatch('global/writeTicketsInfo', this.$store.state.global.ticketsInfo)
     },
   },
 })
