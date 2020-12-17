@@ -111,13 +111,26 @@ export default Vue.extend({
      */
     setUsedClass() {
       let usecount = 0
-      this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
-        if (ticketInfo.use === true) {
-          this.ticketListEl[index].classList.add('is-used')
-          usecount++
-          this.usecount -= usecount
+
+      if (this.$store.state.global.ticketsInfo === null) {
+        const arry = []
+        const item = {
+          date: null,
+          use: false,
         }
-      })
+        for (let i = 0; i < 24; i++) {
+          arry[i].add(item)
+        }
+        this.$store.dispatch('global/writeTicketsInfo', arry)
+      } else {
+        this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
+          if (ticketInfo.use === true) {
+            this.ticketListEl[index].classList.add('is-used')
+            usecount++
+            this.usecount -= usecount
+          }
+        })
+      }
     },
     clickTicket(index) {
       console.log('click', index)

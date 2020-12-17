@@ -20,7 +20,7 @@
 
       <form
         v-if="isSubmit === false"
-        name="contact"
+        name="ticket"
         netlify
         netlify-honeypot="bot-field"
         @submit.prevent
@@ -183,7 +183,7 @@ export default Vue.extend({
     },
     submit() {
       const formData = {
-        'form-name': 'contact',
+        'form-name': 'ticket',
         ticketName: this.ttl,
         message: this.message,
       }
