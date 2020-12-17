@@ -178,14 +178,9 @@ export default Vue.extend({
       })
     },
     encode(data) {
-      const params = new URLSearchParams()
-      Object.keys(data).map((key) => params.append(key, data[key]))
-      return params
-      // return (
-      //   Object.keys(data)
-      // .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      // .join('&')
-      // )
+      return Object.keys(data)
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        .join('&')
     },
     submit() {
       const formData = {
@@ -194,15 +189,12 @@ export default Vue.extend({
         messege: this.message,
       }
       console.log(this.encode(formData))
-      // const axiosConfig = {
-      //   header: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      // }
       axios
         .post({
           method: 'post',
           url: '/',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          data: formData,
+          data: this.encode(formData),
         })
         .then(() => {
           this.isSubmit = true
