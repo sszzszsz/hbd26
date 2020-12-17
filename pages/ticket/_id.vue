@@ -197,9 +197,16 @@ export default Vue.extend({
       // const axiosConfig = {
       //   header: { 'Content-Type': 'application/x-www-form-urlencoded' },
       // }
-      axios.post('/', formData).then(() => {
-        this.isSubmit = true
-      })
+      axios
+        .post({
+          method: 'post',
+          url: '/',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          data: formData,
+        })
+        .then(() => {
+          this.isSubmit = true
+        })
     },
   },
 })
