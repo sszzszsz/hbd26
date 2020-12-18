@@ -8,104 +8,7 @@ export const state = () => ({
   pageTransition: 1,
   scrollFlag: true,
   pageParam: 0,
-  ticketsInfo: [
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-    {
-      date: null,
-      use: false,
-    },
-  ],
+  ticketsInfo: [],
   clickedTicket: 0,
 })
 
@@ -135,10 +38,20 @@ export const mutations = {
   setPageParam(state, value) {
     state.pageParam = value
   },
-  setTicketsInfo(state, value) {
-    state.ticketsInfo = value
+  updateTicketsInfo(state, param) {
+    state.ticketsInfo.find((el) => {
+      console.log(el)
+      if (el.id === param.index) {
+        el.date = param.date
+        el.use = param.flag
+      }
+    })
     // localStorageの更新を行う
+    localStorage.setItem('ticketsInfo', JSON.stringify(state.ticketsInfo))
+  },
+  setTicketsInfo(state, value) {
     localStorage.setItem('ticketsInfo', JSON.stringify(value))
+    state.ticketsInfo = value
   },
   setClickTicket(state, value) {
     state.clickedTicket = value
@@ -171,8 +84,5 @@ export const actions = {
   },
   writePageParam(context, value) {
     context.commit('setPageParam', value)
-  },
-  writeTicketsInfo(context, value) {
-    context.commit('setTicketsInfo', value)
   },
 }

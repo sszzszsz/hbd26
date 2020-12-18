@@ -108,19 +108,20 @@ export default Vue.extend({
      */
     getStorage() {
       const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
-      this.$store.dispatch('global/writeTicketsInfo', infos)
       // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
       if (infos === null) {
         const arry = []
-        const item = {
-          date: null,
-          use: false,
-        }
         for (let i = 0; i < 24; i++) {
+          const item = {
+            id: i,
+            date: null,
+            use: false,
+          }
           arry[i] = item
         }
-        this.$store.dispatch('global/writeTicketsInfo', arry)
+        this.$store.commit('global/setTicketsInfo', arry)
       } else {
+        this.$store.commit('global/setTicketsInfo', infos)
         this.setUsedClass()
         this.coucntMonthLimit()
       }

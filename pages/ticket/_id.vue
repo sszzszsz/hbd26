@@ -224,10 +224,14 @@ export default Vue.extend({
       const globalTicketsInfo = this.$store.state.global.ticketsInfo
       console.log(globalTicketsInfo)
 
-      globalTicketsInfo[arrNum].date = curenntMonth
-      globalTicketsInfo[arrNum].use = true
-      console.log(globalTicketsInfo)
-      this.$store.dispatch('global/writeTicketsInfo', globalTicketsInfo)
+      // globalTicketsInfo[arrNum].date = curenntMonth
+      // globalTicketsInfo[arrNum].use = true
+      // console.log(globalTicketsInfo)
+      this.$store.commit('global/updateTicketsInfo', {
+        index: arrNum,
+        date: curenntMonth,
+        flag: true,
+      })
     },
   },
 })
