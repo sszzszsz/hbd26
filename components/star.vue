@@ -52,6 +52,9 @@
   5% {
     opacity: 0.8;
   }
+  // 50% {
+  //   top: 100%;
+  // }
   95% {
     opacity: 0.8;
   }
@@ -100,6 +103,7 @@
 }
 
 .m-starList li {
+  transform: scale(1.5);
   &:nth-child(1) {
     top: 5%;
     left: 7%;

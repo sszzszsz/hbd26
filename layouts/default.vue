@@ -138,4 +138,16 @@ export default Vue.extend({
     }
   }
 }
+.index {
+  .l-cont {
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: url('~@/assets/img/bg_top.svg') no-repeat;
+      background-size: contain;
+    }
+  }
+}
 </style>
