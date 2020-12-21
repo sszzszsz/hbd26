@@ -75,26 +75,30 @@ select::-ms-expand {
   &-btn {
     position: relative;
     min-width: 242px;
-    width: 76%;
+    width: 75%;
     margin: 0 auto;
-
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      bottom: spvw(-6px);
+      left: spvw(6px);
+      border-radius: 2px;
+      border: 3px solid #6c655d85;
+    }
     &__inr {
+      position: relative;
+      z-index: 1;
       display: block;
       width: 100%;
       text-decoration: none;
-      padding: spvw(20px) 0 spvw(28px);
+      padding: spvw(20px) 0 spvw(20px);
       border-radius: 2px;
-
-      &:after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 13px;
-        background: url('~@/assets/img/arw_right_dark.svg') no-repeat center;
-        position: absolute;
-        bottom: 10%;
-        left: 14%;
-      }
+      border: 3px solid $brown_dark2;
+      background: #fdfcf887;
+      color: $brown_dark2;
     }
 
     &__txt {
@@ -103,43 +107,55 @@ select::-ms-expand {
       line-height: 1.2;
       &--main {
         @include josefin-b();
-        font-size: spfz(30px);
+        font-size: spfz(24px);
         letter-spacing: 0.05em;
       }
       &--sub {
         @include notosans-m();
         font-size: spfz(12px);
         opacity: 0.8;
+        padding-top: 0.1em;
       }
     }
 
-    &--wt {
+    &--small {
+      min-width: 160px;
+      width: 40%;
+      &:after {
+        // border: spvw(2px) solid #6c655d85;
+      }
       .m-btn {
         &__inr {
-          background: $brown_pale1;
-          box-shadow: 3px 3px 2px $brown_dark1;
-          color: $brown_dark2;
+          padding: spvw(12px) 0 spvw(12px);
+          // border: spvw(2px) solid $brown_dark2;
         }
         &__txt {
-          text-shadow: 0 0 4px #b3b0a7;
-        }
-      }
-    }
-
-    &--bw {
-      .m-btn {
-        &__inr {
-          background: $brown_dark1;
-          box-shadow: 3px 3px 2px $brown_dark2;
-          color: $brown_pale1;
-          &:after {
-            background: url('~@/assets/img/arw_right_pale.svg') no-repeat center;
+          &--main {
+            font-size: spfz(14px);
           }
         }
-        &__txt {
-          text-shadow: 0 0 4px $brown_dark2;
-        }
       }
+    }
+  }
+
+  &-link {
+    text-align: center;
+    &__inr {
+      display: inline-block;
+      color: $brown_dark2;
+      text-decoration: none;
+      &::before {
+        content: '';
+        display: inline-block;
+        width: spvw(7px);
+        height: spvw(10px);
+        background: url('~@/assets/img/common/icon_arrow_dropleft.svg') no-repeat;
+        background-size: contain;
+      }
+    }
+    &__txt {
+      display: inline-block;
+      padding-left: 0.5em;
     }
   }
 
@@ -236,4 +252,15 @@ select::-ms-expand {
 }
 .page-enter-active {
   transition: opacity 1s;
+}
+.js-scroll {
+  &.is-fadeUp {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    &.is-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

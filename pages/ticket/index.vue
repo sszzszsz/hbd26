@@ -8,18 +8,20 @@
         </div>
         <h1 class="m-ttl__txt"><span>SPECAIL TICKET</span></h1>
       </div>
-      <p class="p-ticket__count">
+      <p v-if="monthLimitFlag === false" class="p-ticket__count">
         今月の残り使用回数<span>{{ usecount }}</span
         >回
       </p>
+      <p v-else class="p-ticket__count">来月にまたご利用ください</p>
       <ul class="p-ticket__list">
         <li
           v-for="(ticket, index) in tickets"
           :id="`${ticket.id}${ticket.num}`"
           :key="ticket.num"
           ref="ticket"
-          class="p-ticket__item js-ticket"
-          @pointerdown="clickTicket(index + 1)"
+          :class="monthLimitFlag === true ? 'is-limited' : ''"
+          class="p-ticket__item js-scroll is-fadeUp"
+          @pointerdown="clickTicket($event, index + 1)"
         >
           <ticket
             :id="ticket.id"
@@ -30,9 +32,6 @@
           />
         </li>
       </ul>
-    </div>
-    <div v-if="monthLimitFlag === true" class="p-ticket__limited">
-      <p>上限です<br />また来月ご利用ください</p>
     </div>
   </main>
 </template>
@@ -68,7 +67,7 @@ export default Vue.extend({
     init() {
       console.log('🏂 チケット一覧')
       // 今回の交差を監視する要素
-      this.ticketListEl = document.querySelectorAll('.js-ticket')
+      this.ticketListEl = document.querySelectorAll('.js-scroll')
 
       this.obserber()
       this.getStorage()
@@ -79,8 +78,8 @@ export default Vue.extend({
      */
     obserber() {
       const options = {
-        root: document.querySelector('.l-inr'),
-        rootMargin: '-3%',
+        // root: document.querySelector('.l-inr'),
+        rootMargin: '-100px 0px 0px 0px',
         threshold: 0.5,
       }
 
@@ -97,6 +96,7 @@ export default Vue.extend({
       function doWhenIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            console.log(entry)
             entry.target.classList.add('is-view')
           }
         })
@@ -159,12 +159,12 @@ export default Vue.extend({
      * チケットクリック時
      * 既に上限に達していた場合は遷移しない
      */
-    clickTicket(index) {
+    clickTicket(event, index) {
       console.log('click', index)
       if (this.monthLimitFlag !== true) {
         this.$store.commit('global/setClickTicket', index)
       } else {
-        console.log('stop')
+        event.preventDefault()
       }
     },
   },
@@ -172,32 +172,6 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 .l-main {
-  &.dmy {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    p {
-      @include josefin-b();
-      font-size: spfz(16px);
-      margin-bottom: 5vh;
-    }
-
-    .m-btn {
-      width: 70%;
-    }
-    .m-btn__inr {
-      padding: spvw(20px) 0 spvw(20px);
-    }
-  }
   &__cont {
     position: relative;
     z-index: 10;
@@ -205,7 +179,7 @@ export default Vue.extend({
 }
 .p-ticket {
   &__list {
-    padding-bottom: spvw(30px);
+    padding: spvw(15px) spvw(5px) spvw(30px);
   }
   &__item {
     margin-top: spvw(10px);
@@ -221,7 +195,7 @@ export default Vue.extend({
       padding: 0 0.2em;
       color: transparent;
       @include josefin-b();
-      font-size: spfz(30px);
+      font-size: spfz(34px);
       -webkit-text-stroke: 1px $brown_dark2;
     }
   }

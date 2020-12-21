@@ -13,7 +13,7 @@
     <div ref="l-cont" class="l-cont">
       <frame />
       <div class="l-inr">
-        <transition name="page" @after-enter="afterEnter">
+        <transition name="page" @before-enter="beforeEnter" @after-enter="afterEnter">
           <Nuxt />
         </transition>
       </div>
@@ -68,6 +68,12 @@ export default Vue.extend({
         false
       )
     },
+    beforeEnter(el) {
+      console.log('beforeEnter')
+      const body = document.getElementById('__nuxt')
+      const event = new CustomEvent('beforeEnter')
+      body.dispatchEvent(event)
+    },
     afterEnter(el) {
       console.log('enter')
       const body = document.getElementById('__nuxt')
@@ -82,7 +88,7 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    padding: spvw(12px) spvw(12px);
+    padding: spvw(15px) spvw(12px);
     overflow: hidden;
     min-height: 100vh;
     background-color: $brown_pale1;

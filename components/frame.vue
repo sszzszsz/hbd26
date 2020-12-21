@@ -35,7 +35,7 @@ export default Vue.extend({
     display: block;
     width: 100%;
     height: spvw(29px);
-    background: url('~@/assets/img/bg_frame_top.svg') no-repeat;
+    background: url('~@/assets/img/common/bg_frame_top.svg') no-repeat;
     background-size: cover;
   }
 

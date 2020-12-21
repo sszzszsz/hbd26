@@ -77,7 +77,7 @@ export default Vue.extend({
       console.log('🐣 ticket')
     },
     renderImg(file) {
-      return require('@/assets/img/' + file)
+      return require('@/assets/img/ticket/' + file)
     },
   },
 })
@@ -88,11 +88,11 @@ export default Vue.extend({
     position: relative;
     background: #e4e2d9;
     background-image: url('~@/assets/img/paper_ticket_outer.png');
-
     border: 1px solid $brown_dark2;
     border-right: none;
     width: calc(100% - 7px);
     height: spvw(96px);
+    min-height: 96px;
     display: flex;
     box-shadow: 1px 2px 3px #6c655d6e;
     z-index: 50;
@@ -118,9 +118,11 @@ export default Vue.extend({
     &__bg {
       position: absolute;
       bottom: 0;
-      left: 0;
+      right: 0%;
       z-index: 51;
       opacity: 0.7;
+      height: 100%;
+      width: auto;
     }
 
     &__inr {
@@ -217,14 +219,17 @@ export default Vue.extend({
       flex-shrink: 0;
     }
     &__ttl {
-      padding: 0.3em 0 0.8em;
+      padding: 0.3em 0 1em;
       @include notosans-b();
       font-size: spfz(14px);
     }
     &__date {
       @include josefin-r();
       font-size: spfz(12px);
-      text-align: right;
+      // text-align: right;
+      position: absolute;
+      bottom: 0.5em;
+      left: 1em;
     }
     &__limit {
       width: 12%;

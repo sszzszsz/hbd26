@@ -25,7 +25,7 @@
         netlify-honeypot="bot-field"
         @submit.prevent
       >
-        <section class="p-sec">
+        <section class="p-sec js-scroll is-fadeUp">
           <div class="m-secTtl">
             <span class="m-secTtl--sub"
               ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
@@ -35,7 +35,7 @@
           <p class="p-detail--txt">{{ detail }}</p>
         </section>
 
-        <section class="p-sec--skew">
+        <section class="p-sec--skew js-scroll is-fadeUp">
           <div class="p-sec--inr">
             <div class="m-secTtl">
               <span class="m-secTtl--sub"
@@ -73,6 +73,11 @@
               <span class="m-btn__txt m-btn__txt--main">REQUEST</span>
               <span class="m-btn__txt m-btn__txt--sub">お願いする</span>
             </button>
+          </div>
+          <div class="m-link">
+            <nuxt-link to="/ticket/" class="m-link__inr">
+              <span class="m-link__txt">戻る</span>
+            </nuxt-link>
           </div>
         </section>
       </form>
@@ -147,6 +152,7 @@ export default Vue.extend({
       function doWhenIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            console.log(entry)
             entry.target.classList.add('is-view')
           }
         })
@@ -248,9 +254,11 @@ export default Vue.extend({
   margin-bottom: spvw(40px);
 }
 .m-btn {
-  margin-bottom: spvw(60px);
+  margin-bottom: spvw(20px);
 }
-
+.m-link {
+  margin: spvw(30px) 0 spvw(40px);
+}
 .p {
   &-ticket {
     transition-delay: 1s;
@@ -262,17 +270,17 @@ export default Vue.extend({
   &-sec {
     &--skew {
       position: relative;
-      margin: spvw(50px) 0 spvw(50px);
+      margin: spvw(60px) 0 spvw(60px);
       &:before {
         content: '';
         display: block;
         position: absolute;
         width: 200vw;
         height: 100%;
-        background: #e4e2d9;
+        background: #fdfcf3;
         transform: rotate(-8deg);
         left: -50%;
-        background-image: url('~@/assets/img/line_dot_wt.svg'), url('~@/assets/img/line_dot_wt.svg');
+        background-image: url('~@/assets/img/line_stitch.svg'), url('~@/assets/img/line_stitch.svg');
         background-repeat: repeat-x, repeat-x;
         background-position: center 2.5%, center 97.5%;
         border: 1px solid #6c655d;
@@ -351,17 +359,8 @@ export default Vue.extend({
     max-height: 150px;
     min-height: 150px;
     overflow-y: auto;
-    margin-bottom: 1em;
     color: $brown_dark2;
+    margin-bottom: spvw(30px);
   }
-}
-.js-scroll {
-  // opacity: 0;
-  // transform: translateY(10px);
-  // transition: opacity 0.3s, transform 0.3s;
-  // &.is-view {
-  //   opacity: 1;
-  //   transform: translateY(0);
-  // }
 }
 </style>
