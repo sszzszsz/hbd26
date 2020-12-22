@@ -1,6 +1,6 @@
 <template>
   <div class="m-ticket">
-    <nuxt-link v-if="linkFrag == true" :to="`/ticket/${index}/`" class="m-ticket__inr">
+    <NuxtLink v-if="linkFrag == true" :to="`/ticket/${index}/`" class="m-ticket__inr">
       <img :src="renderImg(`bg_ticket_${id}.svg`)" class="m-ticket__bg" />
       <dl class="m-ticket__box">
         <dt class="m-ticket__num">
@@ -14,7 +14,7 @@
       <div class="m-ticket__limit">
         <span class="m-ticket__limitTxt">ONLY ONCE</span>
       </div>
-    </nuxt-link>
+    </NuxtLink>
 
     <div v-else class="m-ticket__inr">
       <img :src="renderImg(`bg_ticket_${id}.svg`)" class="m-ticket__bg" />
@@ -34,6 +34,7 @@
 
     <div class="m-ticket--used">
       <p>USED</p>
+      <p>2021/{{ month }}/{{ date }}</p>
     </div>
   </div>
 </template>
@@ -66,6 +67,8 @@ export default Vue.extend({
   data() {
     return {
       isDmy: false,
+      month: '',
+      date: '',
     }
   },
   created() {},
@@ -75,6 +78,35 @@ export default Vue.extend({
   methods: {
     init() {
       console.log('🐣 ticket')
+      this.getStorage()
+    },
+    /**
+     * WebStrorageを読み込んでstoreに登録する
+     */
+    getStorage() {
+      const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
+      // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
+      if (infos === null) {
+        const arry = []
+        for (let i = 0; i < 24; i++) {
+          const item = {
+            id: i,
+            month: null,
+            date: null,
+            use: false,
+          }
+          arry[i] = item
+        }
+        this.$store.commit('global/setTicketsInfo', arry)
+      } else {
+        this.$store.commit('global/setTicketsInfo', infos)
+        this.$store.state.global.ticketsInfo.find((el) => {
+          if (el.use === true) {
+            this.month = el.month
+            this.date = el.date
+          }
+        })
+      }
     },
     renderImg(file) {
       return require('@/assets/img/ticket/' + file)
@@ -82,7 +114,7 @@ export default Vue.extend({
   },
 })
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .m {
   &-ticket {
     position: relative;

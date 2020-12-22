@@ -12,14 +12,13 @@
         今月の残り使用回数<span>{{ usecount }}</span
         >回
       </p>
-      <p v-else class="p-ticket__count">来月にまたご利用ください</p>
+      <p v-else class="p-ticket__count">利用上限数に達しました<br />来月にまたご利用ください</p>
       <ul class="p-ticket__list">
         <li
           v-for="(ticket, index) in tickets"
           :id="`${ticket.id}${ticket.num}`"
           :key="ticket.num"
           ref="ticket"
-          :class="monthLimitFlag === true ? 'is-limited' : ''"
           class="p-ticket__item js-scroll is-fadeUp"
           @pointerdown="clickTicket($event, index + 1)"
         >
@@ -37,7 +36,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import ticketLists from '~/assets/tickets.json'
+import ticketLists from '~/assets/data/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
 
@@ -52,6 +51,8 @@ export default Vue.extend({
       tickets: ticketLists,
       usecount: 2,
       monthLimitFlag: false,
+      month: '',
+      date: '',
     }
   },
   created() {
@@ -96,7 +97,6 @@ export default Vue.extend({
       function doWhenIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log(entry)
             entry.target.classList.add('is-view')
           }
         })
@@ -109,44 +109,25 @@ export default Vue.extend({
     getStorage() {
       const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
       // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
-      if (infos === null) {
-        const arry = []
-        for (let i = 0; i < 24; i++) {
-          const item = {
-            id: i,
-            date: null,
-            use: false,
-          }
-          arry[i] = item
-        }
-        this.$store.commit('global/setTicketsInfo', arry)
-      } else {
-        this.$store.commit('global/setTicketsInfo', infos)
-        this.setUsedClass()
-        this.coucntMonthLimit()
+      if (infos !== null) {
+        this.setTicketInfo()
       }
     },
 
     /**
      * 使用済みクラスを付与する
+     * 今月の使用回数をカウントする(2回以上使用していた場合、当月は使用不可)
      */
-    setUsedClass() {
+    setTicketInfo() {
+      const today = new Date()
+      const curenntMonth = today.getMonth()
+      let count = 0
+
       this.$store.state.global.ticketsInfo.forEach((info, index) => {
         if (info.use === true) {
           this.ticketListEl[index].classList.add('is-used')
         }
-      })
-    },
-    /**
-     * 今月の使用回数をカウントする
-     * 2回以上使用していた場合、当月は使用不可
-     */
-    coucntMonthLimit() {
-      const today = new Date()
-      const curenntMonth = today.getMonth()
-      let count = 0
-      this.$store.state.global.ticketsInfo.forEach((ticketInfo, index) => {
-        if (ticketInfo.date === curenntMonth) {
+        if (info.month === curenntMonth) {
           count++
         }
       })

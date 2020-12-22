@@ -16,6 +16,7 @@
         <transition name="page" @before-enter="beforeEnter" @after-enter="afterEnter">
           <Nuxt />
         </transition>
+        <theFooter v-if="this.$route.name !== 'index'" />
       </div>
     </div>
   </div>
@@ -23,10 +24,12 @@
 <script>
 import Vue from 'vue'
 import frame from '~/components/frame.vue'
+import theFooter from '~/components/footer.vue'
 
 export default Vue.extend({
   components: {
     frame,
+    theFooter,
   },
   data() {
     return {
@@ -146,7 +149,14 @@ export default Vue.extend({
       width: 100%;
       height: 100%;
       background: url('~@/assets/img/bg_top.svg') no-repeat;
-      background-size: contain;
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      z-index: 2;
     }
   }
 }

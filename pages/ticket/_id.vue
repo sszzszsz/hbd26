@@ -75,16 +75,21 @@
             </button>
           </div>
           <div class="m-link">
-            <nuxt-link to="/ticket/" class="m-link__inr">
+            <NuxtLink to="/ticket/" class="m-link__inr">
               <span class="m-link__txt">戻る</span>
-            </nuxt-link>
+            </NuxtLink>
           </div>
         </section>
       </form>
 
-      <div v-if="isSubmit === true">
-        <p>サンクス</p>
-        <p><nuxt-link to="/" v-text="'TOPへ'" /></p>
+      <div v-if="isSubmit === true" class="p-sec--done">
+        <p>ご利用ありがとうございます</p>
+        <p>上記のお願いをうけたまわりました<br />実行されるまでしばしおまちください</p>
+        <div class="m-btn m-btn--small">
+          <NuxtLink to="/ticket/" class="m-btn__inr">
+            <span class="m-btn__txt m-btn__txt--main">一覧にもどる</span>
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </main>
@@ -93,7 +98,7 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
-import ticketLists from '~/assets/tickets.json'
+import ticketLists from '~/assets/data/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
 
@@ -160,11 +165,11 @@ export default Vue.extend({
     },
 
     /**
-     * clickされた情報を元に値を設定
+     * URLを元に値を設定
      */
     getClickedTicket() {
-      this.index = this.$store.state.global.clickedTicket - 1
-      console.log(this.index)
+      const id = window.location.href.split('/')[4]
+      this.index = Number(id) - 1
       this.id = this.tickets[this.index].id
       this.num = this.tickets[this.index].num
       this.ttl = this.tickets[this.index].ttl
@@ -226,16 +231,14 @@ export default Vue.extend({
     updateTicketsInfo() {
       const today = new Date()
       const curenntMonth = today.getMonth()
+      const curenntDay = today.getDate()
       const arrNum = Number(this.$route.params.id) - 1
       const globalTicketsInfo = this.$store.state.global.ticketsInfo
       console.log(globalTicketsInfo)
-
-      // globalTicketsInfo[arrNum].date = curenntMonth
-      // globalTicketsInfo[arrNum].use = true
-      // console.log(globalTicketsInfo)
       this.$store.commit('global/updateTicketsInfo', {
         index: arrNum,
-        date: curenntMonth,
+        month: curenntMonth,
+        date: curenntDay,
         flag: true,
       })
     },
@@ -292,6 +295,20 @@ export default Vue.extend({
       z-index: 100;
       padding: spvw(50px) 0 spvw(70px);
       font-size: spfz(14px);
+    }
+    &--done {
+      margin-top: spvw(30px);
+      p {
+        font-size: spfz(14px);
+        text-align: center;
+
+        & + p {
+          margin-top: 1em;
+        }
+      }
+      .m-btn {
+        margin-top: spvw(30px);
+      }
     }
   }
 
