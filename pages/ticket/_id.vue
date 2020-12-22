@@ -157,7 +157,6 @@ export default Vue.extend({
       function doWhenIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log(entry)
             entry.target.classList.add('is-view')
           }
         })
@@ -233,8 +232,6 @@ export default Vue.extend({
       const curenntMonth = today.getMonth()
       const curenntDay = today.getDate()
       const arrNum = Number(this.$route.params.id) - 1
-      const globalTicketsInfo = this.$store.state.global.ticketsInfo
-      console.log(globalTicketsInfo)
       this.$store.commit('global/updateTicketsInfo', {
         index: arrNum,
         month: curenntMonth,

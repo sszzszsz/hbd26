@@ -30,14 +30,8 @@ export default Vue.extend({
     return {}
   },
   created() {},
-  mounted() {
-    this.init()
-  },
-  methods: {
-    init() {
-      console.log('init')
-    },
-  },
+  mounted() {},
+  methods: {},
 })
 </script>
 

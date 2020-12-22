@@ -40,7 +40,6 @@ export const mutations = {
   },
   updateTicketsInfo(state, param) {
     state.ticketsInfo.find((el) => {
-      console.log(el)
       if (el.id === param.index) {
         el.month = param.month
         el.date = param.date

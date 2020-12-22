@@ -3,18 +3,6 @@
     <div class="m-frame--mid" />
   </div>
 </template>
-<script>
-import Vue from 'vue'
-
-export default Vue.extend({
-  data() {
-    return {}
-  },
-  mounted() {
-    console.log('🐣 frame')
-  },
-})
-</script>
 
 <style lang="scss" scoped>
 .m-frame {

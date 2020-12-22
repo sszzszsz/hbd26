@@ -57,6 +57,7 @@ export default Vue.extend({
   },
   created() {
     // this.getStorage()
+    console.log('🏂 チケット一覧 created')
   },
   mounted() {
     this.init()
@@ -71,7 +72,7 @@ export default Vue.extend({
       this.ticketListEl = document.querySelectorAll('.js-scroll')
 
       this.obserber()
-      this.getStorage()
+      this.setTicketInfo()
     },
 
     /**
@@ -102,18 +103,6 @@ export default Vue.extend({
         })
       }
     },
-
-    /**
-     * WebStrorageを読み込んでstoreに登録する
-     */
-    getStorage() {
-      const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
-      // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
-      if (infos !== null) {
-        this.setTicketInfo()
-      }
-    },
-
     /**
      * 使用済みクラスを付与する
      * 今月の使用回数をカウントする(2回以上使用していた場合、当月は使用不可)

@@ -40,12 +40,14 @@ export default Vue.extend({
     }
   },
   created() {
+    console.log('default created')
     this.browser = this.$ua.browser()
     if (this.browser === 'Internet Explorer') {
       this.browser = 'IE'
     }
     this.$store.dispatch('global/writePageName', this.$route.name)
     this.$store.dispatch('global/writeBrowser', this.browser)
+    this.getStorage()
   },
   mounted() {
     console.log('default')
@@ -70,6 +72,28 @@ export default Vue.extend({
         },
         false
       )
+    },
+    /**
+     * WebStrorageを読み込んでstoreに登録する
+     */
+    getStorage() {
+      const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
+      // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
+      if (infos === null) {
+        const arry = []
+        for (let i = 0; i < 24; i++) {
+          const item = {
+            id: i,
+            month: null,
+            date: null,
+            use: false,
+          }
+          arry[i] = item
+        }
+        this.$store.commit('global/setTicketsInfo', arry)
+      } else {
+        this.$store.commit('global/setTicketsInfo', infos)
+      }
     },
     beforeEnter(el) {
       console.log('beforeEnter')

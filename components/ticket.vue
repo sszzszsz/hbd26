@@ -33,8 +33,8 @@
     </div>
 
     <div class="m-ticket--used">
-      <p>USED</p>
-      <p>2021/{{ month }}/{{ date }}</p>
+      <p class="m-ticket--usedTxt">USED</p>
+      <p class="m-ticket--usedDate">2021/{{ month }}/{{ date }}</p>
     </div>
   </div>
 </template>
@@ -78,35 +78,18 @@ export default Vue.extend({
   methods: {
     init() {
       console.log('🐣 ticket')
-      this.getStorage()
+      this.getUsedDate()
     },
     /**
-     * WebStrorageを読み込んでstoreに登録する
+     * 使用済みの場合に日付を取得
      */
-    getStorage() {
-      const infos = JSON.parse(localStorage.getItem('ticketsInfo'))
-      // 初回時にWebStrorageに何もない場合、ticketsInfoを登録する
-      if (infos === null) {
-        const arry = []
-        for (let i = 0; i < 24; i++) {
-          const item = {
-            id: i,
-            month: null,
-            date: null,
-            use: false,
-          }
-          arry[i] = item
+    getUsedDate() {
+      this.$store.state.global.ticketsInfo.find((el) => {
+        if (el.use === true) {
+          this.month = el.month
+          this.date = el.date
         }
-        this.$store.commit('global/setTicketsInfo', arry)
-      } else {
-        this.$store.commit('global/setTicketsInfo', infos)
-        this.$store.state.global.ticketsInfo.find((el) => {
-          if (el.use === true) {
-            this.month = el.month
-            this.date = el.date
-          }
-        })
-      }
+      })
     },
     renderImg(file) {
       return require('@/assets/img/ticket/' + file)
@@ -287,6 +270,7 @@ export default Vue.extend({
 .is-used .m-ticket {
   &--used {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -297,6 +281,10 @@ export default Vue.extend({
     position: absolute;
     top: 0;
     z-index: 53;
+    @include josefin-b();
+    color: #e4e2d9;
+    line-height: 1;
+
     &:after {
       display: block;
       content: '';
@@ -310,13 +298,13 @@ export default Vue.extend({
       top: -1px;
       right: -15px;
     }
-
-    p {
-      @include josefin-b();
-      color: #e4e2d9;
-      opacity: 0.8;
-      font-size: spfz(40px);
-    }
+  }
+  &--usedTxt {
+    font-size: spfz(30px);
+  }
+  &--usedDate {
+    font-size: spfz(12px);
+    padding-top: 0.3em;
   }
 }
 </style>
