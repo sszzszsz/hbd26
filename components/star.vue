@@ -1,7 +1,7 @@
 <template>
   <div class="m-decoration">
     <ul class="m-starList">
-      <li v-for="n in 12" :key="n" class="m-star__item">
+      <li v-for="n in 8" :key="n" class="m-star__item">
         <div class="m-star__inr">
           <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
             <path
@@ -13,7 +13,7 @@
       </li>
     </ul>
     <ul class="m-snowList">
-      <li v-for="n in 12" :key="n" class="m-snow__item">
+      <li v-for="n in 8" :key="n" class="m-snow__item">
         <div class="m-snow__inr">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@
 @mixin animation() {
   svg {
     animation-name: star;
-    animation-delay: minMaxRandom(0, 3, 1s);
+    animation-delay: minMaxRandom(0, 2, 1s);
     animation-duration: minMaxRandom(10, 20, 1s);
     animation-iteration-count: infinite;
     animation-fill-mode: both;
@@ -80,7 +80,6 @@
 
   svg {
     position: absolute;
-    mix-blend-mode: color-dodge;
     mix-blend-mode: lighten;
   }
   path {
@@ -103,14 +102,14 @@
 }
 
 .m-starList li {
-  transform: scale(1.5);
+  transform: scale(1.25);
   &:nth-child(1) {
     top: 5%;
     left: 7%;
     @include animation();
   }
   &:nth-child(2) {
-    top: 7%;
+    top: 57%;
     left: 20%;
     @include animation();
   }
@@ -125,43 +124,23 @@
     @include animation();
   }
   &:nth-child(5) {
-    top: 58%;
+    top: 78%;
     left: 43%;
     @include animation();
   }
   &:nth-child(6) {
     top: 2%;
-    left: 80%;
+    left: 66%;
     @include animation();
   }
   &:nth-child(7) {
     top: 68%;
-    left: 66%;
+    left: 86%;
     @include animation();
   }
   &:nth-child(8) {
     top: 24%;
-    left: 69%;
-    @include animation();
-  }
-  &:nth-child(9) {
-    top: 18%;
-    left: 72%;
-    @include animation();
-  }
-  &:nth-child(10) {
-    top: 57%;
-    left: 7%;
-    @include animation();
-  }
-  &:nth-child(11) {
-    top: 75%;
-    left: 90%;
-    @include animation();
-  }
-  &:nth-child(12) {
-    top: 24%;
-    left: 10%;
+    left: 78%;
     @include animation();
   }
 }
@@ -171,7 +150,7 @@
   }
   li.m-snow__item {
     &:nth-child(1) {
-      top: 2%;
+      top: 8%;
       left: 10%;
       @include animation();
     }
@@ -181,7 +160,7 @@
       @include animation();
     }
     &:nth-child(3) {
-      top: 4%;
+      top: 19%;
       left: 45%;
       @include animation();
     }
@@ -196,8 +175,8 @@
       @include animation();
     }
     &:nth-child(6) {
-      top: 2%;
-      left: 56%;
+      top: 82%;
+      left: 78%;
       @include animation();
     }
     &:nth-child(7) {
@@ -207,27 +186,7 @@
     }
     &:nth-child(8) {
       top: 84%;
-      left: 39%;
-      @include animation();
-    }
-    &:nth-child(9) {
-      top: 71%;
-      left: 80%;
-      @include animation();
-    }
-    &:nth-child(10) {
-      top: 28%;
-      left: 37%;
-      @include animation();
-    }
-    &:nth-child(11) {
-      top: 25%;
-      left: 56%;
-      @include animation();
-    }
-    &:nth-child(12) {
-      top: 64%;
-      left: 20%;
+      left: 27%;
       @include animation();
     }
   }

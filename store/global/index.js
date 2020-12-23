@@ -26,9 +26,6 @@ export const mutations = {
   setLodingEnd(state, value) {
     state.loadingEnd = value
   },
-  setGNaviOpen(state, value) {
-    state.gNaviOpen = value
-  },
   setPageTransition(state, value) {
     state.pageTransition = value
   },
@@ -72,9 +69,6 @@ export const actions = {
   },
   writeLodingEnd(context, value) {
     context.commit('setLodingEnd', value)
-  },
-  writeGNaviOpen(context, value) {
-    context.commit('setGNaviOpen', value)
   },
   writePageTransition(context, value) {
     context.commit('setPageTransition', value)
