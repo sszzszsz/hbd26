@@ -10,10 +10,21 @@
     ]"
     class="l-wrap"
   >
+    <theLoading v-if="this.$route.name === 'index' && $store.state.global.loadingEnd !== true" />
     <div ref="l-cont" class="l-cont">
       <frame />
       <div class="l-inr">
-        <transition name="page" @before-enter="beforeEnter" @after-enter="afterEnter">
+        <transition
+          name="page"
+          @before-enter="beforeEnter"
+          @enter="enter"
+          @after-enter="afterEnter"
+          @enter-cancelled="enterCancelled"
+          @before-leave="beforeLeave"
+          @leave="leave"
+          @after-leave="afterLeave"
+          @leave-cancelled="leaveCancelled"
+        >
           <Nuxt />
         </transition>
         <theFooter v-if="this.$route.name !== 'index'" />
@@ -24,11 +35,13 @@
 <script>
 import Vue from 'vue'
 import frame from '~/components/frame.vue'
+import theLoading from '~/components/loading.vue'
 import theFooter from '~/components/footer.vue'
 
 export default Vue.extend({
   components: {
     frame,
+    theLoading,
     theFooter,
   },
   data() {
@@ -50,28 +63,29 @@ export default Vue.extend({
     this.getStorage()
   },
   mounted() {
-    console.log('default')
+    console.log('🐣 default')
     this.getVh()
     this.setEventLister()
+  },
+  beforeDestroy() {
+    const scrollY = window.scrollY
+    this.$store.dispatch('global/writeScrollY', scrollY)
   },
   methods: {
     getVh() {
       this.vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${this.vh}px`)
     },
+    /**
+     * 各イベント付与
+     */
     setEventLister() {
       window.addEventListener('resize', () => {
         this.getVh()
       })
-      window.addEventListener(
-        'load',
-        function () {
-          setTimeout(function () {
-            scrollTo(0, 1)
-          }, 100)
-        },
-        false
-      )
+      document.body.addEventListener('loaded', () => {
+        console.log('loaded')
+      })
     },
     /**
      * WebStrorageを読み込んでstoreに登録する
@@ -95,17 +109,46 @@ export default Vue.extend({
         this.$store.commit('global/setTicketsInfo', infos)
       }
     },
+    // --------
+    // ENTERING
+    // --------
+
     beforeEnter(el) {
-      console.log('beforeEnter')
-      const body = document.getElementById('__nuxt')
       const event = new CustomEvent('beforeEnter')
-      body.dispatchEvent(event)
+      document.body.dispatchEvent(event)
+    },
+    // CSS と組み合わせて使う時、done コールバックはオプションです
+    enter(el, done) {
+      const event = new Event('enter', { bubbles: true })
+      document.body.dispatchEvent(event)
+      done()
     },
     afterEnter(el) {
-      console.log('enter')
-      const body = document.getElementById('__nuxt')
       const event = new CustomEvent('afterEnter')
-      body.dispatchEvent(event)
+      document.body.dispatchEvent(event)
+    },
+    enterCancelled(el) {
+      // ...
+    },
+
+    // --------
+    // LEAVING
+    // --------
+
+    beforeLeave(el) {
+      // ...
+    },
+    // CSS と組み合わせて使う時、done コールバックはオプションです
+    leave(el, done) {
+      // ...
+      done()
+    },
+    afterLeave(el) {
+      // ...
+    },
+    // v-show と共に使うときだけ leaveCancelled は有効です
+    leaveCancelled(el) {
+      // ...
     },
   },
 })

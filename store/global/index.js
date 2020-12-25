@@ -1,13 +1,12 @@
 // 状態管理したい要素に名前をつけて、stateとしてexportする
 export const state = () => ({
   pageName: '',
+  prevPageName: '',
   browser: '',
   scrollY: 0,
   loadingEnd: false,
-  gNaviOpen: false,
   pageTransition: 1,
-  scrollFlag: true,
-  pageParam: 0,
+  prevPageParam: 0,
   ticketsInfo: [],
   clickedTicket: 0,
 })
@@ -17,6 +16,9 @@ export const mutations = {
   setPageName(state, value) {
     state.pageName = value
   },
+  setPrevPageName(state, value) {
+    state.prevPageName = value
+  },
   setBrowser(state, value) {
     state.browser = value
   },
@@ -24,16 +26,15 @@ export const mutations = {
     state.scrollY = value
   },
   setLodingEnd(state, value) {
+    const event = new CustomEvent('loaded')
+    document.body.dispatchEvent(event)
     state.loadingEnd = value
   },
   setPageTransition(state, value) {
     state.pageTransition = value
   },
-  setScrollFlag(state, value) {
-    state.scrollFlag = value
-  },
-  setPageParam(state, value) {
-    state.pageParam = value
+  setPrevPageParam(state, value) {
+    state.prevPageParam = value
   },
   updateTicketsInfo(state, param) {
     state.ticketsInfo.find((el) => {
@@ -61,6 +62,9 @@ export const actions = {
     // コミットすることで状態変更が反映される
     context.commit('setPageName', value)
   },
+  writePrevPageName(context, value) {
+    context.commit('setPrevPageName', value)
+  },
   writeBrowser(context, value) {
     context.commit('setBrowser', value)
   },
@@ -73,10 +77,13 @@ export const actions = {
   writePageTransition(context, value) {
     context.commit('setPageTransition', value)
   },
-  writeScrollFlag(context, value) {
-    context.commit('setScrollFlag', value)
+  writePrevPageParam(context, value) {
+    context.commit('setPrevPageParam', value)
   },
-  writePageParam(context, value) {
-    context.commit('setPageParam', value)
+}
+
+export const getters = {
+  loaded: (state) => {
+    return state.loadingEnd
   },
 }

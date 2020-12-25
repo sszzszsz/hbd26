@@ -57,7 +57,7 @@
           </div>
         </section>
 
-        <section>
+        <section class="js-scroll is-fadeUp">
           <p class="p-hope--txt">希望がある場合、以下に記入してください</p>
           <textarea
             id="message"
@@ -98,6 +98,9 @@
 <script>
 import Vue from 'vue'
 import axios from 'axios'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import ticketLists from '~/assets/data/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
@@ -129,36 +132,30 @@ export default Vue.extend({
   methods: {
     init() {
       console.log('🏂 チケット詳細')
-      this.setEvent()
+      this.scrollEl = document.querySelectorAll('.js-scroll')
+      window.scrollTo(0, 0)
+      this.obserber()
     },
 
     /**
      * スクロール検知（IntersectionObserver）
      */
     obserber() {
-      // 今回の交差を監視する要素
-      this.ticketListEl = document.querySelectorAll('.js-scroll')
-      const options = {
-        root: document.querySelector('.l-inr'),
-        rootMargin: '-3%',
-        threshold: 0.5,
-      }
-
-      const observer = new IntersectionObserver(doWhenIntersect, options)
-      // それぞれのboxを監視する
-      this.ticketListEl.forEach((item) => {
-        observer.observe(item)
+      gsap.registerPlugin(ScrollTrigger)
+      this.scrollEl.forEach((el, index) => {
+        scroll(el)
       })
-
-      /**
-       * 交差したときに呼び出す関数
-       * @param entries
-       */
-      function doWhenIntersect(entries) {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-view')
-          }
+      function scroll(el) {
+        gsap.to(el, {
+          // 動かしたい要素は".a"
+          opacity: 1,
+          y: 10,
+          duration: 0.3,
+          scrollTrigger: {
+            trigger: el, // 要素".a"がビューポートに入ったときにアニメーション開始
+            start: 'top 80%', // アニメーション開始位置
+            // markers: true, // マーカー表示
+          },
         })
       }
     },

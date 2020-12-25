@@ -36,6 +36,9 @@
 </template>
 <script>
 import Vue from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import ticketLists from '~/assets/data/tickets.json'
 import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
@@ -56,7 +59,6 @@ export default Vue.extend({
     }
   },
   created() {
-    // this.getStorage()
     console.log('🏂 チケット一覧 created')
   },
   mounted() {
@@ -73,33 +75,37 @@ export default Vue.extend({
 
       this.obserber()
       this.setTicketInfo()
+
+      if (
+        this.$store.state.global.prevPageName === 'ticket-id' &&
+        this.$store.state.global.prevPageParam !== null
+      ) {
+        const prevTicketNum = Number(this.$store.state.global.prevPageParam) - 1
+        const targetPos = this.ticketListEl[prevTicketNum].getBoundingClientRect()
+        const scrollPos = targetPos.top + window.pageYOffset
+        window.scrollTo(0, scrollPos)
+      }
     },
 
     /**
-     * スクロール検知（IntersectionObserver）
+     * スクロール検知
      */
     obserber() {
-      const options = {
-        // root: document.querySelector('.l-inr'),
-        rootMargin: '-100px 0px 0px 0px',
-        threshold: 0.5,
-      }
-
-      const observer = new IntersectionObserver(doWhenIntersect, options)
-      // それぞれのboxを監視する
-      this.ticketListEl.forEach((item) => {
-        observer.observe(item)
+      gsap.registerPlugin(ScrollTrigger)
+      this.ticketListEl.forEach((el, index) => {
+        scroll(el)
       })
-
-      /**
-       * 交差したときに呼び出す関数
-       * @param entries
-       */
-      function doWhenIntersect(entries) {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-view')
-          }
+      function scroll(el) {
+        gsap.to(el, {
+          // 動かしたい要素は".a"
+          opacity: 1,
+          y: 10,
+          duration: 0.3,
+          scrollTrigger: {
+            trigger: el, // 要素".a"がビューポートに入ったときにアニメーション開始
+            start: 'top 80%', // アニメーション開始位置
+            // markers: true, // マーカー表示
+          },
         })
       }
     },
@@ -153,6 +159,7 @@ export default Vue.extend({
   }
   &__item {
     margin-top: spvw(10px);
+    transform: translateY(10px);
   }
 
   &__count {

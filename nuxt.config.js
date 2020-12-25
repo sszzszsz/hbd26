@@ -120,5 +120,6 @@ export default {
       config.resolve.alias['~'] = path.resolve(__dirname)
       config.resolve.alias['@'] = path.resolve(__dirname)
     },
+    transpile: ['gsap'],
   },
 }
