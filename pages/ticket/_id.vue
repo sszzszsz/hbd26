@@ -50,10 +50,13 @@
             </ul>
             <div class="p-checkBox">
               <label for="agree" class="p-checkBox--label">
-                <input id="agree" v-model="checkBox" type="checkbox" @change="changeCheckBox()" />
+                <input id="agree" v-model="checkBox" type="checkbox" />
                 <span class="p-checkBox--txt">上記に同意する</span>
               </label>
             </div>
+            <p v-if="errorFlag === true" class="p-checkBox--error">
+              同意ボタンをチェックしてください
+            </p>
           </div>
         </section>
 
@@ -121,6 +124,7 @@ export default Vue.extend({
       isSubmit: false,
       checkBox: false,
       message: '',
+      errorFlag: false,
     }
   },
   created() {
@@ -185,13 +189,6 @@ export default Vue.extend({
       })
     },
     /**
-     * 同意ボタン
-     */
-    changeCheckBox() {
-      console.log('changed')
-      this.checkBox = true
-    },
-    /**
      * Ajaxで送信するようにエンコードする
      * netlifyのフォームをAjaxで利用するためにはエンコードが必要
      * https://docs.netlify.com/forms/setup/#submit-javascript-rendered-forms-with-ajax
@@ -215,10 +212,14 @@ export default Vue.extend({
       }
       // 同意ボタンにチェックがついていたらAjaxで送信
       if (this.checkBox) {
+        this.errorFlag = false
         axios.post('/', this.encode(formData), axiosConfig).then(() => {
           this.isSubmit = true
+          window.scrollTo(0, 0)
           this.updateTicketsInfo()
         })
+      } else {
+        this.errorFlag = true
       }
     },
     /**
@@ -226,7 +227,7 @@ export default Vue.extend({
      */
     updateTicketsInfo() {
       const today = new Date()
-      const curenntMonth = today.getMonth()
+      const curenntMonth = today.getMonth() + 1
       const curenntDay = today.getDate()
       const arrNum = Number(this.$route.params.id) - 1
       this.$store.commit('global/updateTicketsInfo', {
@@ -354,6 +355,11 @@ export default Vue.extend({
     input[type='checkbox']:checked + .p-checkBox--txt:after {
       opacity: 1;
     }
+    &--error {
+      padding-top: 0.5em;
+      color: #ce4040;
+      text-align: center;
+    }
   }
   &-hope--txt {
     text-align: center;
@@ -361,7 +367,7 @@ export default Vue.extend({
     margin-bottom: 1em;
   }
   &-hope--txtarea {
-    font-size: spfz(14px);
+    font-size: 16px;
     border: 1px solid $brown_dark2;
     border-radius: 2px;
     background: $brown_pale1;
@@ -372,6 +378,7 @@ export default Vue.extend({
     overflow-y: auto;
     color: $brown_dark2;
     margin-bottom: spvw(30px);
+    transform: scale(0.88);
   }
 }
 </style>

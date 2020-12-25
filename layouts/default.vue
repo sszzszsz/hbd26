@@ -203,6 +203,9 @@ export default Vue.extend({
     z-index: 2;
     min-height: 100vh;
     padding: spvw(12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
