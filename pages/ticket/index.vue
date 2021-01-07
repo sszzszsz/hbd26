@@ -27,7 +27,7 @@
             :index="index + 1"
             :num="ticket.num"
             :ttl="ticket.ttl"
-            :link-frag="true"
+            :link-frag="linkFrag"
           />
         </li>
       </ul>
@@ -56,6 +56,7 @@ export default Vue.extend({
       monthLimitFlag: false,
       month: '',
       date: '',
+      linkFrag: true,
     }
   },
   created() {
@@ -77,6 +78,7 @@ export default Vue.extend({
 
       this.obserber()
       this.setTicketInfo()
+      this.setTicketEvent()
 
       if (
         this.$store.state.global.prevPageName === 'ticket-id' &&
@@ -133,6 +135,11 @@ export default Vue.extend({
       console.log(this.usecount)
       if (this.usecount === 0) {
         this.monthLimitFlag = true
+      }
+    },
+    setTicketEvent() {
+      if (this.monthLimitFlag) {
+        this.linkFrag = false
       }
     },
     /**
