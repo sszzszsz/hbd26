@@ -24,7 +24,7 @@
         </dt>
         <dd class="m-ticket__dtl">
           <p class="m-ticket__ttl">{{ ttl }}</p>
-          <p class="m-ticket__date">DeadLine : 2020/12/31</p>
+          <p class="m-ticket__date">DeadLine : 2021/12/31</p>
         </dd>
       </dl>
       <div class="m-ticket__limit">

@@ -66,6 +66,8 @@ export default Vue.extend({
   },
   beforeDestroy() {
     console.log('🏂 チケット一覧 beforeDestroy')
+    const scrollY = window.scrollY
+    this.$store.dispatch('global/writeScrollY', scrollY)
   },
   methods: {
     init() {
@@ -99,7 +101,7 @@ export default Vue.extend({
         gsap.to(el, {
           // 動かしたい要素は".a"
           opacity: 1,
-          y: -10,
+          y: 0,
           duration: 0.3,
           scrollTrigger: {
             trigger: el, // 要素".a"がビューポートに入ったときにアニメーション開始
@@ -141,6 +143,14 @@ export default Vue.extend({
       console.log('click', index)
       if (this.monthLimitFlag !== true) {
         this.$store.commit('global/setClickTicket', index)
+        // const targetHtml = event.currentTarget.outerHTML
+        // const targetPosY = event.pageY
+        // event.currentTarget.insertAdjacentHTML('afterend', targetHtml)
+        // event.currentTarget.nextElementSibling.classList.add('copy')
+        // gsap.set(event.currentTarget.nextElementSibling, {
+        //   y: targetPosY,
+        // })
+        // writeScrollY
       } else {
         event.preventDefault()
       }

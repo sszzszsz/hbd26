@@ -247,11 +247,13 @@ select::-ms-expand {
   }
 }
 
-.page-enter {
+.page-enter,
+.page-leave-to {
   opacity: 0;
+  transform: translateY(-2%);
 }
 .page-enter-active {
-  transition: opacity 1s;
+  transition: opacity 1s, transform 1s;
 }
 .js-scroll {
   &.is-fadeUp {

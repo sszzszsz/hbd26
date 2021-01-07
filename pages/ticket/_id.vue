@@ -2,7 +2,7 @@
   <main class="l-main">
     <star />
     <div class="l-main__cont">
-      <div ref="ttl" class="m-ttl js-scroll">
+      <div ref="ttl" class="m-ttl">
         <div class="m-ttl__logo">
           <img src="@/assets/img/logo_top.svg" alt="HAPPY BIRTHDAY 26th" />
         </div>
@@ -15,7 +15,7 @@
         :num="num"
         :ttl="ttl"
         :link-frag="false"
-        class="js-scroll"
+        class=""
       />
 
       <form
@@ -103,6 +103,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 
 import ticketLists from '~/assets/data/tickets.json'
 import star from '~/components/star.vue'
@@ -137,7 +138,10 @@ export default Vue.extend({
     init() {
       console.log('🏂 チケット詳細')
       this.scrollEl = document.querySelectorAll('.js-scroll')
+      // const y = this.$store.state.global.scrollY
       window.scrollTo(0, 0)
+      gsap.registerPlugin(ScrollToPlugin)
+      // gsap.to(window, { duration: 0.5, scrollTo: 0 })
       this.obserber()
     },
 
@@ -153,7 +157,7 @@ export default Vue.extend({
         gsap.to(el, {
           // 動かしたい要素は".a"
           opacity: 1,
-          y: 10,
+          y: 0,
           duration: 0.3,
           scrollTrigger: {
             trigger: el, // 要素".a"がビューポートに入ったときにアニメーション開始

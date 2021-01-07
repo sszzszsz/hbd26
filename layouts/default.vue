@@ -14,17 +14,7 @@
     <div ref="l-cont" class="l-cont">
       <frame />
       <div class="l-inr">
-        <transition
-          name="page"
-          @before-enter="beforeEnter"
-          @enter="enter"
-          @after-enter="afterEnter"
-          @enter-cancelled="enterCancelled"
-          @before-leave="beforeLeave"
-          @leave="leave"
-          @after-leave="afterLeave"
-          @leave-cancelled="leaveCancelled"
-        >
+        <transition name="page">
           <Nuxt />
         </transition>
         <theFooter v-if="this.$route.name !== 'index'" />
@@ -53,7 +43,6 @@ export default Vue.extend({
     }
   },
   created() {
-    console.log('default created')
     this.browser = this.$ua.browser()
     if (this.browser === 'Internet Explorer') {
       this.browser = 'IE'
@@ -66,10 +55,6 @@ export default Vue.extend({
     console.log('🐣 default')
     this.getVh()
     this.setEventLister()
-  },
-  beforeDestroy() {
-    const scrollY = window.scrollY
-    this.$store.dispatch('global/writeScrollY', scrollY)
   },
   methods: {
     getVh() {
@@ -110,9 +95,8 @@ export default Vue.extend({
       }
     },
     // --------
-    // ENTERING
+    // ANIMTAION
     // --------
-
     beforeEnter(el) {
       const event = new CustomEvent('beforeEnter')
       document.body.dispatchEvent(event)
@@ -130,11 +114,7 @@ export default Vue.extend({
     enterCancelled(el) {
       // ...
     },
-
-    // --------
     // LEAVING
-    // --------
-
     beforeLeave(el) {
       // ...
     },
