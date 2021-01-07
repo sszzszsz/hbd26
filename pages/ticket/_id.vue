@@ -87,6 +87,81 @@
 
       <div v-if="isSubmit === true" class="p-sec--done">
         <p>ご利用ありがとうございます</p>
+        <div class="p-send">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="84.749"
+            height="78.365"
+            viewBox="0 0 84.749 78.365"
+            class="p-send__icon"
+          >
+            <g transform="translate(-119.467 -25.997)">
+              <g ref="dec" class="p-send__icon__dec">
+                <path
+                  d="M178.765,37.644l11.8-5.055-4.887-5.9Z"
+                  transform="translate(11.699 0.137)"
+                  fill="#e3d182"
+                />
+                <path
+                  d="M181.087,42.964l10.972,1.316-1.1-6.5Z"
+                  transform="translate(12.157 2.324)"
+                  fill="#e3d182"
+                />
+                <path
+                  d="M173.422,35.486,177.679,27,172.1,26Z"
+                  transform="translate(10.385)"
+                  fill="#e3d182"
+                />
+              </g>
+              <path
+                d="M119.467,62.088v40.428h68.49l.066-40.428-34.1-26.731Z"
+                transform="translate(0 1.847)"
+                fill="#928d82"
+              />
+              <g ref="letter" class="p-send__icon__letter">
+                <rect
+                  width="55.443"
+                  height="57.358"
+                  transform="translate(126.023 43.348)"
+                  fill="#fdfcf3"
+                />
+                <rect
+                  width="36.103"
+                  height="1.862"
+                  transform="translate(135.808 52.111)"
+                  fill="#e4e2d9"
+                />
+                <rect
+                  width="36.103"
+                  height="1.862"
+                  transform="translate(135.808 58.586)"
+                  fill="#e4e2d9"
+                />
+                <rect
+                  width="36.103"
+                  height="1.862"
+                  transform="translate(135.808 65.062)"
+                  fill="#e4e2d9"
+                />
+              </g>
+              <path
+                d="M119.467,57.683V98.111L153.746,77.9Z"
+                transform="translate(0 6.251)"
+                fill="#b3b0a7"
+              />
+              <path
+                d="M182.374,57.683V98.111L148.1,77.9Z"
+                transform="translate(5.649 6.251)"
+                fill="#b3b0a7"
+              />
+              <path
+                d="M119.516,94.75l34.22-20.184L188.013,94.78Z"
+                transform="translate(0.01 9.582)"
+                fill="#928d82"
+              />
+            </g>
+          </svg>
+        </div>
         <p>上記のお願いをうけたまわりました<br />実行されるまでしばしおまちください</p>
         <div class="m-btn m-btn--small">
           <NuxtLink to="/ticket/" class="m-btn__inr">
@@ -221,6 +296,7 @@ export default Vue.extend({
           this.isSubmit = true
           window.scrollTo(0, 0)
           this.updateTicketsInfo()
+          this.doneAnimation()
         })
       } else {
         this.errorFlag = true
@@ -240,6 +316,26 @@ export default Vue.extend({
         date: curenntDay,
         flag: true,
       })
+    },
+    /**
+     * 完了ページアニメーション
+     */
+    doneAnimation() {
+      window.setTimeout(animation, 200)
+      function animation() {
+        const timeLine = gsap.timeline()
+        timeLine
+          .to('.p-send__icon__letter', {
+            duration: 0.5,
+            y: 0,
+            ease: 'power2.in',
+          })
+          .to('.p-send__icon__dec', {
+            duration: 0.3,
+            opacity: 1,
+            ease: 'power2.in',
+          })
+      }
     },
   },
 })
@@ -306,7 +402,7 @@ export default Vue.extend({
         }
       }
       .m-btn {
-        margin-top: spvw(30px);
+        margin-top: spvw(50px);
       }
     }
   }
@@ -383,6 +479,21 @@ export default Vue.extend({
     color: $brown_dark2;
     margin-bottom: spvw(30px);
     transform: scale(0.88);
+  }
+  &-send {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: spvw(30px) auto;
+    &__icon {
+      transform: translateX(8%);
+      &__letter {
+        transform: translateY(-100%);
+      }
+      &__dec {
+        opacity: 0;
+      }
+    }
   }
 }
 </style>
