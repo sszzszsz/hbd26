@@ -99,7 +99,7 @@ export default Vue.extend({
         gsap.to(el, {
           // 動かしたい要素は".a"
           opacity: 1,
-          y: 10,
+          y: -10,
           duration: 0.3,
           scrollTrigger: {
             trigger: el, // 要素".a"がビューポートに入ったときにアニメーション開始
@@ -115,7 +115,7 @@ export default Vue.extend({
      */
     setTicketInfo() {
       const today = new Date()
-      const curenntMonth = today.getMonth()
+      const curenntMonth = today.getMonth() + 1
       let count = 0
 
       this.$store.state.global.ticketsInfo.forEach((info, index) => {
@@ -126,7 +126,9 @@ export default Vue.extend({
           count++
         }
       })
+      // 上限の２回から使用回数分を引く
       this.usecount -= count
+      console.log(this.usecount)
       if (this.usecount === 0) {
         this.monthLimitFlag = true
       }

@@ -213,6 +213,7 @@ export default Vue.extend({
 }
 .index {
   .l-cont {
+    opacity: 0;
     &:before {
       content: '';
       display: block;
