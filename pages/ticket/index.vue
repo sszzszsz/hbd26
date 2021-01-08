@@ -48,6 +48,7 @@ export default Vue.extend({
     star,
     ticket,
   },
+  transition: 'ticket',
   data() {
     return {
       isDmy: false,
@@ -154,6 +155,11 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" scoped>
+.ticket-leave-active {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
 .l-main {
   &__cont {
     position: relative;

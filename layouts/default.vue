@@ -14,9 +14,10 @@
     <div ref="l-cont" class="l-cont">
       <frame />
       <div class="l-inr">
-        <transition name="page">
+        <!-- <transition name="page">
           <Nuxt />
-        </transition>
+        </transition> -->
+        <Nuxt />
         <theFooter v-if="this.$route.name !== 'index'" />
       </div>
     </div>

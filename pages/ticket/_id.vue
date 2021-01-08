@@ -230,20 +230,19 @@ export default Vue.extend({
       const timeLine = gsap.timeline()
       timeLine
         .to('.p-load__txt', {
-          duration: 0.5,
+          duration: 0.25,
           opacity: 1,
           ease: 'Circ.easeOut',
         })
         .to('.p-load__txt', {
-          delay: 0.5,
-          duration: 0.5,
+          delay: 1,
+          duration: 0.25,
           opacity: 0,
           zIndex: -1,
           ease: 'Circ.easeOut',
         })
         .to('.l-main__cont', {
-          duration: 0.8,
-          delay: 0.2,
+          duration: 0.5,
           opacity: 1,
           y: 0,
           ease: 'Circ.easeOut',
@@ -376,6 +375,14 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+// .thanks-enter-active,
+// .thanks-leave-active {
+//   transition: opacity 0.5s;
+// }
+// .thanks-enter,
+// .thanks-leave-active {
+//   opacity: 0;
+// }
 .l-main {
   &__cont {
     position: relative;
