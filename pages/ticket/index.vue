@@ -20,7 +20,7 @@
           :key="ticket.num"
           ref="ticket"
           class="p-ticket__item js-scroll is-fadeUp"
-          @pointerdown="clickTicket($event, index + 1)"
+          @pointerup="clickTicket($event, index + 1)"
         >
           <ticket
             :id="ticket.id"
@@ -67,8 +67,6 @@ export default Vue.extend({
   },
   beforeDestroy() {
     console.log('🏂 チケット一覧 beforeDestroy')
-    const scrollY = window.scrollY
-    this.$store.dispatch('global/writeScrollY', scrollY)
   },
   methods: {
     init() {
@@ -84,10 +82,7 @@ export default Vue.extend({
         this.$store.state.global.prevPageName === 'ticket-id' &&
         this.$store.state.global.prevPageParam !== null
       ) {
-        const prevTicketNum = Number(this.$store.state.global.prevPageParam) - 1
-        const targetPos = this.ticketListEl[prevTicketNum].getBoundingClientRect()
-        const scrollPos = targetPos.top + window.pageYOffset
-        window.scrollTo(0, scrollPos)
+        window.scrollTo(0, this.$store.state.global.scrollY)
       }
     },
 
@@ -132,11 +127,13 @@ export default Vue.extend({
       })
       // 上限の２回から使用回数分を引く
       this.usecount -= count
-      console.log(this.usecount)
       if (this.usecount === 0) {
         this.monthLimitFlag = true
       }
     },
+    /**
+     * 使用上限時ticketコンポーネントをリンクなしにする
+     */
     setTicketEvent() {
       if (this.monthLimitFlag) {
         this.linkFrag = false
@@ -144,22 +141,13 @@ export default Vue.extend({
     },
     /**
      * チケットクリック時
-     * 既に上限に達していた場合は遷移しない
+     * どのチケットをクリックしたのか記録するため
+     * クリックしたチケットのindexをstroeに登録
      */
     clickTicket(event, index) {
-      console.log('click', index)
       if (this.monthLimitFlag !== true) {
         this.$store.commit('global/setClickTicket', index)
-        // const targetHtml = event.currentTarget.outerHTML
-        // const targetPosY = event.pageY
-        // event.currentTarget.insertAdjacentHTML('afterend', targetHtml)
-        // event.currentTarget.nextElementSibling.classList.add('copy')
-        // gsap.set(event.currentTarget.nextElementSibling, {
-        //   y: targetPosY,
-        // })
-        // writeScrollY
-      } else {
-        event.preventDefault()
+        this.$store.commit('global/setScrollY', window.scrollY)
       }
     },
   },

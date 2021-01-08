@@ -246,14 +246,31 @@ select::-ms-expand {
     }
   }
 }
-
-.page-enter,
-.page-leave-to {
-  opacity: 0;
-  transform: translateY(-2%);
+.ticket {
+  .page-enter,
+  .page-leave-active {
+    opacity: 0;
+    // transform: translateY(2%);
+  }
+  .page-enter-to {
+    /* フェードインの終了状態 */
+    opacity: 1;
+  }
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity 1s, transform 1s;
+  }
 }
-.page-enter-active {
-  transition: opacity 1s, transform 1s;
+.thanks-enter,
+.thanks-leave-active {
+  opacity: 0;
+}
+.thanks-enter-to {
+  opacity: 1;
+}
+.thanks-enter-active,
+.thanks-leave-active {
+  transition: opacity 1s;
 }
 .js-scroll {
   &.is-fadeUp {
