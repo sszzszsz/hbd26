@@ -1,18 +1,18 @@
 <template>
   <div
     :class="[
-      this.$route.name,
-      this.$route.params.id,
+      [this.$route.name == 'ticket-id' ? 'ticket-detail' : this.$route.name],
       [$ua.browser() == 'Internet Explorer' ? 'IE' : $ua.browser()],
       [$ua.isFromPc() == true ? 'PC' : null],
       [$ua.isFromTablet() == true ? 'TB' : null],
       [$ua.isFromSmartphone() == true ? 'SP' : null],
+      [$store.state.global.loadingEnd == true ? 'is-loaded' : null],
     ]"
     class="l-wrap"
   >
     <theLoading v-if="this.$route.name === 'index' && $store.state.global.loadingEnd !== true" />
     <div ref="l-cont" class="l-cont">
-      <frame />
+      <frame v-if="this.$route.name === 'index'" />
       <div class="l-inr">
         <!-- <transition name="page">
           <Nuxt />
@@ -72,6 +72,7 @@ export default Vue.extend({
       document.body.addEventListener('loaded', () => {
         console.log('loaded')
       })
+      // window.scrollTo(this.vh, 0)
     },
     /**
      * WebStrorageを読み込んでstoreに登録する
@@ -139,31 +140,34 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    padding: spvw(15px) spvw(12px);
+    padding: spvw(10px) spvw(10px);
     overflow: hidden;
     min-height: 100vh;
     background-color: $brown_pale1;
-    background-image: linear-gradient(
-        -45deg,
-        #6c655d80 25%,
-        transparent 25%,
-        transparent 50%,
-        #6c655d80 50%,
-        #6c655d80 75%,
-        transparent 75%,
-        transparent 100%
-      ),
-      linear-gradient(
-        45deg,
-        #6c655d80 25%,
-        transparent 25%,
-        transparent 50%,
-        #6c655d80 50%,
-        #6c655d80 75%,
-        transparent 75%,
-        transparent 100%
-      );
-    background-size: 30px 30px;
+    &.is-load {
+      background-image: linear-gradient(
+          -45deg,
+          #6c655d80 25%,
+          transparent 25%,
+          transparent 50%,
+          #6c655d80 50%,
+          #6c655d80 75%,
+          transparent 75%,
+          transparent 100%
+        ),
+        linear-gradient(
+          45deg,
+          #6c655d80 25%,
+          transparent 25%,
+          transparent 50%,
+          #6c655d80 50%,
+          #6c655d80 75%,
+          transparent 75%,
+          transparent 100%
+        );
+      background-size: 30px 30px;
+    }
+
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
@@ -183,7 +187,6 @@ export default Vue.extend({
     position: relative;
     z-index: 2;
     min-height: 100vh;
-    padding: spvw(12px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -192,6 +195,8 @@ export default Vue.extend({
     }
   }
 }
+
+// TOP
 .index {
   .l-cont {
     opacity: 0;
@@ -210,6 +215,16 @@ export default Vue.extend({
       margin: 0 auto;
       z-index: 2;
     }
+  }
+  .l-inr {
+    padding: spvw(12px);
+  }
+}
+// チケット詳細
+.ticket-detail {
+  transition: opacity 0.25s;
+  .m-frame {
+    display: none;
   }
 }
 </style>

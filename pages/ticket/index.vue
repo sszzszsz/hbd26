@@ -48,7 +48,10 @@ export default Vue.extend({
     star,
     ticket,
   },
-  transition: 'ticket',
+  transition: {
+    name: 'ticket',
+    mode: '',
+  },
   data() {
     return {
       isDmy: false,
@@ -97,7 +100,6 @@ export default Vue.extend({
       })
       function scroll(el) {
         gsap.to(el, {
-          // 動かしたい要素は".a"
           opacity: 1,
           y: 0,
           duration: 0.3,
@@ -155,9 +157,14 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" scoped>
+.ticket-enter-active,
 .ticket-leave-active {
-  opacity: 0;
-  transition: opacity 0.5s;
+  transition: filter 1s;
+}
+.ticket-enter,
+.ticket-leave-active {
+  filter: blur(3px);
+  transition: filter 1s;
 }
 
 .l-main {
@@ -171,7 +178,7 @@ export default Vue.extend({
     padding: spvw(15px) spvw(5px) spvw(30px);
   }
   &__item {
-    margin-top: spvw(10px);
+    margin-top: spvw(15px);
     transform: translateY(10px);
   }
 

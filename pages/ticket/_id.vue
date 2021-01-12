@@ -91,6 +91,7 @@
           <p>ご利用ありがとうございます</p>
           <div class="p-send">
             <svg
+              ref="sendIcon"
               xmlns="http://www.w3.org/2000/svg"
               width="84.749"
               height="78.365"
@@ -120,7 +121,7 @@
                   transform="translate(0 1.847)"
                   fill="#928d82"
                 />
-                <g ref="letter" class="p-send__icon__letter">
+                <g class="p-send__icon__letter">
                   <rect
                     width="55.443"
                     height="57.358"
@@ -227,26 +228,35 @@ export default Vue.extend({
       this.obserber()
     },
     loadingAni() {
-      const timeLine = gsap.timeline()
-      timeLine
-        .to('.p-load__txt', {
-          duration: 0.25,
-          opacity: 1,
-          ease: 'Circ.easeOut',
+      function intro() {
+        const timeLine = gsap.timeline({
+          defaults: { ease: 'Circ.easeOut' },
         })
-        .to('.p-load__txt', {
-          delay: 1,
+        timeLine
+          .to('.p-load__txt', {
+            duration: 0.25,
+            opacity: 1,
+          })
+          .to('.p-load__txt', {
+            delay: 1,
+            duration: 0.25,
+            opacity: 0,
+            zIndex: -1,
+          })
+        return timeLine
+      }
+
+      function midlle() {
+        const timeLine = gsap.timeline({ defaults: { ease: 'Circ.easeOut' } })
+        timeLine.to('.l-main__cont', {
           duration: 0.25,
-          opacity: 0,
-          zIndex: -1,
-          ease: 'Circ.easeOut',
-        })
-        .to('.l-main__cont', {
-          duration: 0.5,
           opacity: 1,
           y: 0,
-          ease: 'Circ.easeOut',
         })
+        return timeLine
+      }
+      const master = gsap.timeline()
+      master.add(intro()).add(midlle())
     },
     /**
      * スクロール検知（IntersectionObserver）
@@ -349,25 +359,29 @@ export default Vue.extend({
      * 完了ページアニメーション
      */
     doneAnimation() {
-      window.setTimeout(animation, 200)
+      const _this = this
+      window.setTimeout(animation, 500)
       function animation() {
-        const timeLine = gsap.timeline()
-        timeLine
-          .to('.p-sec--done', {
-            duration: 0.8,
-            opacity: 1,
-            ease: 'Circ.easeOut',
-          })
-          .to('.p-send__icon__letter', {
-            duration: 0.5,
-            y: 0,
-            ease: 'power2.in',
-          })
-          .to('.p-send__icon__dec', {
-            duration: 0.3,
-            opacity: 1,
-            ease: 'power2.in',
-          })
+        const timeLine = gsap.timeline({ onComplete: addClass })
+        timeLine.to('.p-sec--done', {
+          duration: 0.8,
+          opacity: 1,
+          ease: 'Circ.easeOut',
+        })
+        // .to('.p-send__icon__letter', {
+        //   duration: 0.5,
+        //   y: 0,
+        //   ease: 'power2.in',
+        // })
+        // .to('.p-send__icon__dec', {
+        //   duration: 0.3,
+        //   opacity: 1,
+        //   ease: 'power2.in',
+        // })
+      }
+
+      function addClass() {
+        _this.$refs.sendIcon.classList.add('is-animate')
       }
     },
   },
@@ -375,14 +389,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-// .thanks-enter-active,
-// .thanks-leave-active {
-//   transition: opacity 0.5s;
-// }
-// .thanks-enter,
-// .thanks-leave-active {
-//   opacity: 0;
-// }
+.thanks-enter-active,
+.thanks-leave-active {
+  transition: opacity 0.25s;
+}
+.thanks-enter,
+.thanks-leave-active {
+  opacity: 0;
+  transition: opacity 0.25s;
+}
 .l-main {
   &__cont {
     position: relative;
@@ -533,9 +548,20 @@ export default Vue.extend({
       transform: translateX(8%);
       &__letter {
         transform: translateY(-100%);
+        transition: transform 0.5s;
       }
       &__dec {
         opacity: 0;
+        transition: opacity 0.3s;
+        transition-delay: 0.5s;
+      }
+      &.is-animate {
+        .p-send__icon__letter {
+          transform: translateY(0%);
+        }
+        .p-send__icon__dec {
+          opacity: 1;
+        }
       }
     }
   }
@@ -562,8 +588,8 @@ export default Vue.extend({
   }
   &__txt {
     font-size: 100px;
-    color: transparent;
-    -webkit-text-stroke: 1px #6c655d;
+    // color: transparent;
+    // -webkit-text-stroke: 1px #6c655d;
     line-height: 1;
     position: fixed;
     z-index: 101;

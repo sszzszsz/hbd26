@@ -74,7 +74,7 @@ select::-ms-expand {
   // button
   &-btn {
     position: relative;
-    min-width: 242px;
+    min-width: 230px;
     width: 75%;
     margin: 0 auto;
     &:after {
@@ -107,7 +107,7 @@ select::-ms-expand {
       line-height: 1.2;
       &--main {
         @include josefin-b();
-        font-size: spfz(24px);
+        font-size: spfz(20px);
         letter-spacing: 0.05em;
       }
       &--sub {
@@ -246,32 +246,32 @@ select::-ms-expand {
     }
   }
 }
-.ticket {
-  .page-enter,
-  .page-leave-active {
-    opacity: 0;
-    // transform: translateY(2%);
-  }
-  .page-enter-to {
-    /* フェードインの終了状態 */
-    opacity: 1;
-  }
-  .page-enter-active,
-  .page-leave-active {
-    transition: opacity 1s, transform 1s;
-  }
-}
-.thanks-enter,
-.thanks-leave-active {
-  opacity: 0;
-}
-.thanks-enter-to {
-  opacity: 1;
-}
-.thanks-enter-active,
-.thanks-leave-active {
-  transition: opacity 1s;
-}
+// .ticket {
+//   .page-enter,
+//   .page-leave-active {
+//     opacity: 0;
+//     // transform: translateY(2%);
+//   }
+//   .page-enter-to {
+//     /* フェードインの終了状態 */
+//     opacity: 1;
+//   }
+//   .page-enter-active,
+//   .page-leave-active {
+//     transition: opacity 1s, transform 1s;
+//   }
+// }
+// .thanks-enter,
+// .thanks-leave-active {
+//   opacity: 0;
+// }
+// .thanks-enter-to {
+//   opacity: 1;
+// }
+// .thanks-enter-active,
+// .thanks-leave-active {
+//   transition: opacity 1s;
+// }
 .js-scroll {
   &.is-fadeUp {
     opacity: 0;

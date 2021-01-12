@@ -42,6 +42,10 @@ export default Vue.extend({
   components: {
     star,
   },
+  transition: {
+    name: 'home',
+    mode: 'out-in',
+  },
   data() {
     return {}
   },
@@ -95,6 +99,15 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.home-enter-active,
+.home-leave-active {
+  transition: opacity 0.25s;
+}
+.home-enter,
+.home-leave-active {
+  opacity: 0;
+  transition: opacity 0.25s;
+}
 .l-main {
   &__cont {
     position: relative;
@@ -106,24 +119,24 @@ export default Vue.extend({
 .p {
   &-logo {
     text-align: center;
-    margin-bottom: 4vh;
+    margin-bottom: 15vh;
     &__img {
       opacity: 0;
       transform: translateY(10px);
     }
   }
   &-title {
-    padding-top: 20vh;
-    margin-bottom: 6vh;
+    padding-top: 10vh;
+    margin-bottom: 15vh;
 
     &__txt {
       @include josefin-b();
-      font-size: spfz(55px);
+      font-size: spfz(45px);
       color: $brown_dark2;
       text-align: center;
       text-shadow: 0 0 10px #6c655db3;
       line-height: 1.2;
-      letter-spacing: -0.1em;
+      letter-spacing: -0.13em;
     }
     &__txtInr {
       span {
