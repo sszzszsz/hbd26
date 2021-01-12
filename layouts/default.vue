@@ -12,26 +12,23 @@
   >
     <theLoading v-if="this.$route.name === 'index' && $store.state.global.loadingEnd !== true" />
     <div ref="l-cont" class="l-cont">
-      <frame v-if="this.$route.name === 'index'" />
+      <!-- <frame v-if="this.$route.name === 'index'" /> -->
       <div class="l-inr">
-        <!-- <transition name="page">
-          <Nuxt />
-        </transition> -->
         <Nuxt />
-        <theFooter v-if="this.$route.name !== 'index'" />
+        <theFooter v-if="this.$route.name !== 'index'" class="js-scroll" />
       </div>
     </div>
   </div>
 </template>
 <script>
 import Vue from 'vue'
-import frame from '~/components/frame.vue'
+// import frame from '~/components/frame.vue'
 import theLoading from '~/components/loading.vue'
 import theFooter from '~/components/footer.vue'
 
 export default Vue.extend({
   components: {
-    frame,
+    // frame,
     theLoading,
     theFooter,
   },
@@ -95,42 +92,6 @@ export default Vue.extend({
       } else {
         this.$store.commit('global/setTicketsInfo', infos)
       }
-    },
-    // --------
-    // ANIMTAION
-    // --------
-    beforeEnter(el) {
-      const event = new CustomEvent('beforeEnter')
-      document.body.dispatchEvent(event)
-    },
-    // CSS と組み合わせて使う時、done コールバックはオプションです
-    enter(el, done) {
-      const event = new Event('enter', { bubbles: true })
-      document.body.dispatchEvent(event)
-      done()
-    },
-    afterEnter(el) {
-      const event = new CustomEvent('afterEnter')
-      document.body.dispatchEvent(event)
-    },
-    enterCancelled(el) {
-      // ...
-    },
-    // LEAVING
-    beforeLeave(el) {
-      // ...
-    },
-    // CSS と組み合わせて使う時、done コールバックはオプションです
-    leave(el, done) {
-      // ...
-      done()
-    },
-    afterLeave(el) {
-      // ...
-    },
-    // v-show と共に使うときだけ leaveCancelled は有効です
-    leaveCancelled(el) {
-      // ...
     },
   },
 })
@@ -200,21 +161,6 @@ export default Vue.extend({
 .index {
   .l-cont {
     opacity: 0;
-    &:before {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 100%;
-      background: url('~@/assets/img/bg_top.svg') no-repeat;
-      background-size: cover;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      z-index: 2;
-    }
   }
   .l-inr {
     padding: spvw(12px);

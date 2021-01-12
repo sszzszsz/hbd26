@@ -193,8 +193,19 @@ export default Vue.extend({
     ticket,
   },
   transition: {
-    name: 'thanks',
+    name: 'detail',
     mode: 'out-in',
+    // enter(el) {
+    //   console.log('🏂 チケット詳細 enter')
+    //   this.$children[0].loadingAni()
+    // },
+    afterEnter(el) {
+      console.log('🏂 チケット詳細 afterEnter')
+      this.$children[0].loadingAni()
+    },
+    beforeLeave(el) {
+      console.log('🏂 チケット詳細 beforeLeave')
+    },
   },
   data() {
     return {
@@ -213,9 +224,7 @@ export default Vue.extend({
   created() {
     this.getClickedTicket()
   },
-  beforeMounted() {
-    console.log('🏂 チケット一覧 beforeMounted')
-  },
+  beforeMounted() {},
   mounted() {
     this.init()
   },
@@ -224,39 +233,34 @@ export default Vue.extend({
       console.log('🏂 チケット詳細')
       this.scrollEl = document.querySelectorAll('.js-scroll')
       window.scrollTo(0, 0)
-      this.loadingAni()
-      this.obserber()
     },
     loadingAni() {
+      const _this = this
       function intro() {
         const timeLine = gsap.timeline({
-          defaults: { ease: 'Circ.easeOut' },
+          defaults: { ease: 'Circ.easeOut', onComplete: _this.obserber() },
         })
         timeLine
           .to('.p-load__txt', {
-            duration: 0.25,
+            duration: 0.5,
             opacity: 1,
           })
           .to('.p-load__txt', {
-            delay: 1,
-            duration: 0.25,
+            delay: 0.5,
+            duration: 0.5,
             opacity: 0,
             zIndex: -1,
+          })
+          .to('.l-main__cont', {
+            duration: 0.5,
+            delay: -0.5,
+            opacity: 1,
           })
         return timeLine
       }
 
-      function midlle() {
-        const timeLine = gsap.timeline({ defaults: { ease: 'Circ.easeOut' } })
-        timeLine.to('.l-main__cont', {
-          duration: 0.25,
-          opacity: 1,
-          y: 0,
-        })
-        return timeLine
-      }
       const master = gsap.timeline()
-      master.add(intro()).add(midlle())
+      master.add(intro())
     },
     /**
      * スクロール検知（IntersectionObserver）
@@ -368,16 +372,6 @@ export default Vue.extend({
           opacity: 1,
           ease: 'Circ.easeOut',
         })
-        // .to('.p-send__icon__letter', {
-        //   duration: 0.5,
-        //   y: 0,
-        //   ease: 'power2.in',
-        // })
-        // .to('.p-send__icon__dec', {
-        //   duration: 0.3,
-        //   opacity: 1,
-        //   ease: 'power2.in',
-        // })
       }
 
       function addClass() {
@@ -389,21 +383,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.thanks-enter-active,
-.thanks-leave-active {
-  transition: opacity 0.25s;
-}
-.thanks-enter,
-.thanks-leave-active {
-  opacity: 0;
-  transition: opacity 0.25s;
-}
 .l-main {
   &__cont {
     position: relative;
     z-index: 10;
     opacity: 0;
-    transform: translateY(-10px);
   }
 }
 .m-ttl {
@@ -573,6 +557,7 @@ export default Vue.extend({
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

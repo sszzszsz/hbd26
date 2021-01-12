@@ -50,7 +50,14 @@ export default Vue.extend({
   },
   transition: {
     name: 'ticket',
-    mode: '',
+    mode: 'out-in',
+    afterEnter(el) {
+      console.log('🏂 チケット一覧 afterEnter')
+      this.$children[0].obserber()
+    },
+    beforeLeave(el) {
+      console.log('🏂 チケット一覧 beforeLeave')
+    },
   },
   data() {
     return {
@@ -63,22 +70,15 @@ export default Vue.extend({
       linkFrag: true,
     }
   },
-  created() {
-    console.log('🏂 チケット一覧 created')
-  },
+  created() {},
   mounted() {
     this.init()
-  },
-  beforeDestroy() {
-    console.log('🏂 チケット一覧 beforeDestroy')
   },
   methods: {
     init() {
       console.log('🏂 チケット一覧')
-      // 今回の交差を監視する要素
       this.ticketListEl = document.querySelectorAll('.js-scroll')
 
-      this.obserber()
       this.setTicketInfo()
       this.setTicketEvent()
 
@@ -157,16 +157,6 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" scoped>
-.ticket-enter-active,
-.ticket-leave-active {
-  transition: filter 1s;
-}
-.ticket-enter,
-.ticket-leave-active {
-  filter: blur(3px);
-  transition: filter 1s;
-}
-
 .l-main {
   &__cont {
     position: relative;

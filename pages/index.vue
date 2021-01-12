@@ -1,5 +1,6 @@
 <template>
   <main class="l-main">
+    <frame />
     <star />
     <div class="l-main__cont">
       <div class="p-title">
@@ -36,15 +37,23 @@
 <script>
 import Vue from 'vue'
 import gsap from 'gsap'
+import frame from '~/components/frame.vue'
 import star from '~/components/star.vue'
 
 export default Vue.extend({
   components: {
     star,
+    frame,
   },
   transition: {
     name: 'home',
     mode: 'out-in',
+    afterEnter(el) {
+      console.log('🏂 TOP afterEnter')
+    },
+    beforeLeave(el) {
+      console.log('🏂 TOP beforeLeave')
+    },
   },
   data() {
     return {}
@@ -55,15 +64,14 @@ export default Vue.extend({
     const _this = this
     if (this.$store.state.global.prevPageName === null) {
       document.body.addEventListener('loaded', () => {
-        _this.afterEnter()
+        _this.doAnimation()
       })
     } else {
-      _this.afterEnter()
+      _this.doAnimation()
     }
   },
   methods: {
-    afterEnter() {
-      console.log('afterEnter')
+    doAnimation() {
       const timeLine = gsap.timeline()
       timeLine
         .to('.l-cont', {
@@ -99,21 +107,30 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.home-enter-active,
-.home-leave-active {
-  transition: opacity 0.25s;
-}
-.home-enter,
-.home-leave-active {
-  opacity: 0;
-  transition: opacity 0.25s;
-}
 .l-main {
   &__cont {
-    position: relative;
-    width: 100%;
+    position: absolute;
     z-index: 10;
-    mix-blend-mode: color-burn;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: url('~@/assets/img/bg_top.svg') no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 9;
   }
 }
 .p {
@@ -143,7 +160,7 @@ export default Vue.extend({
         // overflow: hidden;
         opacity: 0;
         display: inline-block;
-        transform: translateY(10px);
+        transform: translateY(5px);
       }
     }
   }

@@ -70,6 +70,12 @@ select::-ms-expand {
 /*----------------------------------------*/
 // Module
 /*----------------------------------------*/
+.l-main {
+  min-height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+}
 .m {
   // button
   &-btn {
@@ -246,32 +252,7 @@ select::-ms-expand {
     }
   }
 }
-// .ticket {
-//   .page-enter,
-//   .page-leave-active {
-//     opacity: 0;
-//     // transform: translateY(2%);
-//   }
-//   .page-enter-to {
-//     /* フェードインの終了状態 */
-//     opacity: 1;
-//   }
-//   .page-enter-active,
-//   .page-leave-active {
-//     transition: opacity 1s, transform 1s;
-//   }
-// }
-// .thanks-enter,
-// .thanks-leave-active {
-//   opacity: 0;
-// }
-// .thanks-enter-to {
-//   opacity: 1;
-// }
-// .thanks-enter-active,
-// .thanks-leave-active {
-//   transition: opacity 1s;
-// }
+
 .js-scroll {
   &.is-fadeUp {
     opacity: 0;
@@ -282,4 +263,39 @@ select::-ms-expand {
       transform: translateY(0);
     }
   }
+}
+
+/*----------------------------------------*/
+// transition
+/*----------------------------------------*/
+.home-enter-active,
+.home-leave-active {
+  transition: all 1s;
+}
+.home-enter,
+.home-leave-active {
+  filter: blur(3px);
+  opacity: 0;
+  transition: filter 1s;
+}
+
+.ticket-enter-active,
+.ticket-leave-active {
+  transition: all 1s;
+}
+.ticket-enter,
+.ticket-leave {
+  filter: blur(3px);
+  opacity: 0;
+  transition: all 1s;
+}
+.detail-enter-active,
+.detail-leave-active {
+  transition: all 1s;
+}
+.detail-enter,
+.detail-leave-active {
+  filter: blur(3px);
+  opacity: 0;
+  transition: all 1s;
 }

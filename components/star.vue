@@ -36,7 +36,7 @@
 @mixin animation() {
   svg {
     animation-name: star;
-    animation-delay: minMaxRandom(0, 2, 1s);
+    // animation-delay: minMaxRandom(0, 2, 1s);
     animation-duration: minMaxRandom(10, 20, 1s);
     animation-iteration-count: infinite;
     animation-fill-mode: both;
