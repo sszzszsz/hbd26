@@ -1,7 +1,6 @@
 <template>
   <main class="l-main">
     <div>
-      <star />
       <span class="p-load__txt">{{ num }}</span>
       <div class="l-main__cont">
         <div ref="ttl" class="m-ttl">
@@ -184,21 +183,15 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import ticketLists from '~/assets/data/tickets.json'
-import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
 
 export default Vue.extend({
   components: {
-    star,
     ticket,
   },
   transition: {
     name: 'detail',
     mode: 'out-in',
-    // enter(el) {
-    //   console.log('🏂 チケット詳細 enter')
-    //   this.$children[0].loadingAni()
-    // },
     afterEnter(el) {
       console.log('🏂 チケット詳細 afterEnter')
       this.$children[0].loadingAni()
@@ -238,23 +231,24 @@ export default Vue.extend({
       const _this = this
       function intro() {
         const timeLine = gsap.timeline({
-          defaults: { ease: 'Circ.easeOut', onComplete: _this.obserber() },
+          defaults: { ease: 'Expo.easeInOut', onComplete: _this.obserber() },
         })
         timeLine
           .to('.p-load__txt', {
-            duration: 0.5,
+            duration: 0.3,
             opacity: 1,
           })
           .to('.p-load__txt', {
-            delay: 0.5,
+            delay: 1,
             duration: 0.5,
             opacity: 0,
+            filter: 'blur(5px)',
             zIndex: -1,
           })
           .to('.l-main__cont', {
             duration: 0.5,
-            delay: -0.5,
             opacity: 1,
+            filter: 'blur(0px)',
           })
         return timeLine
       }
@@ -388,6 +382,7 @@ export default Vue.extend({
     position: relative;
     z-index: 10;
     opacity: 0;
+    filter: blur(5px);
   }
 }
 .m-ttl {

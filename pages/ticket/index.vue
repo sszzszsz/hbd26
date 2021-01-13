@@ -1,6 +1,5 @@
 <template>
   <main class="l-main">
-    <star />
     <div class="l-main__cont" :class="{ 'is-limited': monthLimitFlag }">
       <div class="m-ttl">
         <div class="m-ttl__logo">
@@ -40,12 +39,10 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import ticketLists from '~/assets/data/tickets.json'
-import star from '~/components/star.vue'
 import ticket from '~/components/ticket.vue'
 
 export default Vue.extend({
   components: {
-    star,
     ticket,
   },
   transition: {

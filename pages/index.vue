@@ -38,12 +38,12 @@
 import Vue from 'vue'
 import gsap from 'gsap'
 import frame from '~/components/frame.vue'
-import star from '~/components/star.vue'
+import Star from '~/components/star.vue'
 
 export default Vue.extend({
   components: {
-    star,
     frame,
+    Star,
   },
   transition: {
     name: 'home',

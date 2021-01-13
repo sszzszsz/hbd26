@@ -13,6 +13,7 @@
     <theLoading v-if="this.$route.name === 'index' && $store.state.global.loadingEnd !== true" />
     <div ref="l-cont" class="l-cont">
       <!-- <frame v-if="this.$route.name === 'index'" /> -->
+      <star />
       <div class="l-inr">
         <Nuxt />
         <theFooter v-if="this.$route.name !== 'index'" class="js-scroll" />
@@ -23,12 +24,14 @@
 <script>
 import Vue from 'vue'
 // import frame from '~/components/frame.vue'
+import star from '~/components/star.vue'
 import theLoading from '~/components/loading.vue'
 import theFooter from '~/components/footer.vue'
 
 export default Vue.extend({
   components: {
     // frame,
+    star,
     theLoading,
     theFooter,
   },
@@ -146,7 +149,7 @@ export default Vue.extend({
 
   &-inr {
     position: relative;
-    z-index: 2;
+    z-index: 6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
