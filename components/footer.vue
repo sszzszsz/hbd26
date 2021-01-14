@@ -2,7 +2,7 @@
   <footer class="l-footer">
     <ul class="m-footer__link">
       <li class="m-footer__linkItem">
-        <NuxtLink to="/" class="m-footer__linkInr"> HOME </NuxtLink>
+        <NuxtLink to="/" class="m-footer__linkInr"><span>HOME</span></NuxtLink>
       </li>
     </ul>
     <small class="m-footer__copy">2021 Suzu Nagano</small>
@@ -26,29 +26,28 @@
     padding: spvw(12px) spvw(12px);
   }
   &__linkItem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      background: $brown_pale1;
-      border-radius: 50%;
-      border: 1px solid $brown_dark2;
-      background-image: url('~@/assets/img/common/icon_home.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-    }
+    text-align: center;
   }
   &__linkInr {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     @include josefin-b();
     text-decoration: none;
     color: $brown_dark2;
-    display: inline-block;
-    padding-left: 0.5em;
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 25px;
+      height: 17px;
+      background: $brown_pale1;
+      background-image: url('~@/assets/img/common/icon_home.svg');
+      background-repeat: no-repeat;
+      background-position: top center;
+    }
+    span {
+      display: inline-block;
+    }
   }
 }
 </style>
