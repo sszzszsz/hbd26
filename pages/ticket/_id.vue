@@ -1,7 +1,6 @@
 <template>
   <main class="l-main">
     <div>
-      <span class="p-load__txt">{{ num }}</span>
       <div class="l-main__cont">
         <div ref="ttl" class="m-ttl">
           <div class="m-ttl__logo">
@@ -16,7 +15,7 @@
           :num="num"
           :ttl="ttl"
           :link-frag="false"
-          class=""
+          class="m-ticket"
         />
 
         <form
@@ -194,7 +193,6 @@ export default Vue.extend({
     mode: 'out-in',
     afterEnter(el) {
       console.log('🏂 チケット詳細 afterEnter')
-      this.$children[0].loadingAni()
     },
     beforeLeave(el) {
       console.log('🏂 チケット詳細 beforeLeave')
@@ -226,40 +224,42 @@ export default Vue.extend({
       console.log('🏂 チケット詳細')
       this.scrollEl = document.querySelectorAll('.js-scroll')
       window.scrollTo(0, 0)
+      this.loadingAni()
     },
     loadingAni() {
+      const originPos = this.$refs.ticket.$el.offsetTop
+      const originW = this.$refs.ticket.$el.offsetWidth
+      const prevPos =
+        this.$store.state.global.scrollY === 0 ? originPos * 2 : this.$store.state.global.scrollY
       const _this = this
-      function intro() {
-        const timeLine = gsap.timeline({
-          defaults: { ease: 'Expo.easeInOut', onComplete: _this.obserber() },
+      const tl = gsap.timeline({
+        defaults: { ease: 'Expo.easeInOut' },
+        onComplete() {
+          _this.obserber()
+        },
+      })
+      tl.set('.m-ticket', { position: 'fixed', top: prevPos, width: originW })
+        .to('.m-ticket', {
+          top: originPos,
+          duration: 1,
         })
-        timeLine
-          .to('.p-load__txt', {
-            duration: 0.3,
-            opacity: 1,
-          })
-          .to('.p-load__txt', {
-            delay: 1,
-            duration: 0.5,
-            opacity: 0,
-            filter: 'blur(5px)',
-            zIndex: -1,
-          })
-          .to('.l-main__cont', {
-            duration: 0.5,
-            opacity: 1,
-            filter: 'blur(0px)',
-          })
-        return timeLine
-      }
-
-      const master = gsap.timeline()
-      master.add(intro())
+        .to('.m-ticket', {
+          position: '',
+          width: '',
+          top: '',
+          duration: 0.1,
+        })
+        .to('.m-ttl', {
+          opacity: 1,
+          duration: 0.5,
+          delay: -0.2,
+        })
     },
     /**
      * スクロール検知（IntersectionObserver）
      */
     obserber() {
+      console.log('🏂 スクロール検知')
       gsap.registerPlugin(ScrollTrigger)
       this.scrollEl.forEach((el, index) => {
         scroll(el)
@@ -381,12 +381,13 @@ export default Vue.extend({
   &__cont {
     position: relative;
     z-index: 10;
-    opacity: 0;
-    filter: blur(5px);
+    // opacity: 0;
+    // filter: blur(5px);
   }
 }
 .m-ttl {
   margin-bottom: spvw(40px);
+  opacity: 0;
 }
 .m-btn {
   margin-bottom: spvw(20px);

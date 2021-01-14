@@ -147,7 +147,8 @@ export default Vue.extend({
     clickTicket(event, index) {
       if (this.monthLimitFlag !== true) {
         this.$store.commit('global/setClickTicket', index)
-        this.$store.commit('global/setScrollY', window.scrollY)
+        const tciketPos = event.currentTarget.offsetTop - window.scrollY
+        this.$store.commit('global/setScrollY', tciketPos)
       }
     },
   },
