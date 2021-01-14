@@ -93,6 +93,10 @@ select::-ms-expand {
       left: spvw(6px);
       border-radius: 2px;
       border: 3px solid #6c655d85;
+      @include mq() {
+        bottom: pcvw(-6px);
+        left: pcvw(6px);
+      }
     }
     &__inr {
       position: relative;
@@ -105,6 +109,9 @@ select::-ms-expand {
       border: 3px solid $brown_dark2;
       background: #fdfcf887;
       color: $brown_dark2;
+      @include mq() {
+        padding: pcvw(20px) 0 pcvw(20px);
+      }
     }
 
     &__txt {
@@ -115,12 +122,18 @@ select::-ms-expand {
         @include josefin-b();
         font-size: spfz(20px);
         letter-spacing: 0.05em;
+        @include mq() {
+          font-size: pcfz(18px);
+        }
       }
       &--sub {
         @include notosans-m();
         font-size: spfz(12px);
         opacity: 0.8;
         padding-top: 0.1em;
+        @include mq() {
+          font-size: pcfz(12px);
+        }
       }
     }
 
@@ -133,11 +146,16 @@ select::-ms-expand {
       .m-btn {
         &__inr {
           padding: spvw(12px) 0 spvw(12px);
-          // border: spvw(2px) solid $brown_dark2;
+          @include mq() {
+            padding: pcvw(12px) 0 pcvw(12px);
+          }
         }
         &__txt {
           &--main {
             font-size: spfz(14px);
+            @include mq() {
+              font-size: pcfz(14px);
+            }
           }
         }
       }
@@ -172,6 +190,12 @@ select::-ms-expand {
     &__logo {
       text-align: center;
       margin-bottom: spvw(13px);
+      @include mq() {
+        margin-bottom: pcvw(20px);
+        img {
+          width: 25%;
+        }
+      }
     }
     &__txt {
       position: relative;
@@ -181,6 +205,9 @@ select::-ms-expand {
       color: $brown_dark2;
       text-align: center;
       line-height: 1.2;
+      @include mq() {
+        font-size: pcfz(36px);
+      }
       span {
         position: relative;
         display: inline-block;
@@ -209,11 +236,17 @@ select::-ms-expand {
     @include josefin-m();
     text-align: center;
     position: relative;
-
+    @include mq() {
+      margin-bottom: pcvw(30px);
+      padding: pcvw(30px) 14px 0;
+    }
     &--sub {
       display: inline-block;
       font-size: spfz(10px);
       position: relative;
+      @include mq() {
+        font-size: pcfz(10px);
+      }
       &:after {
         content: '';
         display: inline-block;
@@ -265,6 +298,11 @@ select::-ms-expand {
   }
 }
 
+.spNon {
+  @include mq() {
+    display: none;
+  }
+}
 /*----------------------------------------*/
 // transition
 /*----------------------------------------*/

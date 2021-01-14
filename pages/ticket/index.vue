@@ -164,10 +164,24 @@ export default Vue.extend({
 .p-ticket {
   &__list {
     padding: spvw(15px) spvw(5px) spvw(30px);
+    @include mq() {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 0 30px;
+    }
   }
   &__item {
     margin-top: spvw(15px);
     transform: translateY(10px);
+    @include mq() {
+      margin-top: 2%;
+      width: auto;
+      padding: 0 2%;
+      display: inline-flex;
+      justify-content: center;
+    }
   }
 
   &__count {
@@ -175,6 +189,9 @@ export default Vue.extend({
     text-align: center;
     font-size: spfz(14px);
     color: $brown_dark2;
+    @include mq() {
+      font-size: pcfz(16px);
+    }
     span {
       display: inline-block;
       padding: 0 0.2em;
@@ -182,6 +199,9 @@ export default Vue.extend({
       @include josefin-b();
       font-size: spfz(34px);
       -webkit-text-stroke: 1px $brown_dark2;
+      @include mq() {
+        font-size: pcfz(34px);
+      }
     }
   }
   &__limited {

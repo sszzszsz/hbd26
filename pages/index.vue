@@ -15,7 +15,9 @@
             <span class="p-title__txtStr">C</span>
             <span class="p-title__txtStr">I</span>
             <span class="p-title__txtStr">A</span>
-            <span class="p-title__txtStr">L</span><br /><span class="p-title__txtStr">T</span>
+            <span class="p-title__txtStr">L</span>
+            <br class="spNon" />
+            <span class="p-title__txtStr">T</span>
             <span class="p-title__txtStr">I</span>
             <span class="p-title__txtStr">C</span>
             <span class="p-title__txtStr">K</span>
@@ -140,6 +142,9 @@ export default Vue.extend({
     &__img {
       opacity: 0;
       transform: translateY(10px);
+      @include mq() {
+        width: 35%;
+      }
     }
   }
   &-title {
@@ -154,6 +159,9 @@ export default Vue.extend({
       text-shadow: 0 0 10px #6c655db3;
       line-height: 1.2;
       letter-spacing: -0.13em;
+      @include mq() {
+        font-size: pcfz(40px);
+      }
     }
     &__txtInr {
       span {
@@ -168,5 +176,8 @@ export default Vue.extend({
 .m-btn {
   opacity: 0;
   transform: translateY(10px);
+  @include mq() {
+    max-width: 500px;
+  }
 }
 </style>

@@ -135,6 +135,9 @@ export default Vue.extend({
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
+    @include mq() {
+      padding: 15px;
+    }
   }
 
   &-cont {
@@ -167,6 +170,9 @@ export default Vue.extend({
   }
   .l-inr {
     padding: spvw(12px);
+    @include mq() {
+      padding: 12px;
+    }
   }
 }
 // チケット詳細

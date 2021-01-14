@@ -23,8 +23,12 @@ $cont_pad: '15px';
   background-size: 27.8px 28.8px;
 }
 
-$pcWidth: 1000px;
-$spWidth: 375px;
+$breakpoint-sm: 375px !default;
+$breakpoint-md: 768px !default;
+$breakpoint-lg: 1024px !default;
+
+$pcWidth: $breakpoint-md;
+$spWidth: $breakpoint-sm;
 @function pcvw($num, $width: $pcWidth) {
   @return (1vw * $num / $width * 100);
 }
@@ -89,4 +93,20 @@ $spWidth: 375px;
     $num: random($max);
   }
   @return $num * $unit;
+}
+
+// マップ型の変数で定義
+$breakpoints: (
+  'sm': 'screen and (min-width: 375px)',
+  'md': 'screen and (min-width: 768px)',
+  'lg': 'screen and (min-width: 1024px)',
+  'xl': 'screen and (min-width: 1366px)',
+) !default;
+
+// map-get()の第一引数に変数名、第二引数にマップ型のキーを渡すと、マップ型の値が返る
+// @include mq()
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
 }

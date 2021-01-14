@@ -71,8 +71,10 @@ export default Vue.extend({
     text-shadow: 0 0 5px #fff;
     // background: $brown_pale1;
     background-image: url('~@/assets/img/paper_main.png');
-
     text-align: center;
+    @include mq() {
+      font-size: pcfz(24px);
+    }
     span {
       display: block;
       position: relative;

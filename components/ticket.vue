@@ -111,6 +111,10 @@ export default Vue.extend({
     display: flex;
     box-shadow: 1px 2px 3px #6c655d6e;
     z-index: 50;
+    @include mq() {
+      height: pcvw(96px);
+      min-width: pcvw(280px);
+    }
 
     &:after {
       display: block;
@@ -152,7 +156,9 @@ export default Vue.extend({
       text-decoration: none;
       position: relative;
       z-index: 52;
-
+      @include mq() {
+        margin: pcvw(8px) auto;
+      }
       &:before {
         display: block;
         content: '';
@@ -181,6 +187,12 @@ export default Vue.extend({
     &__box {
       padding: spvw(5px) spvw(8px) spvw(5px) spvw(12px);
       width: 88%;
+      position: relative;
+      z-index: 52;
+      @include mq() {
+        padding: pcvw(5px) pcvw(8px) pcvw(5px) pcvw(12px);
+        width: 92%;
+      }
 
       &:before {
         display: block;
@@ -205,6 +217,9 @@ export default Vue.extend({
         position: absolute;
         bottom: -3px;
         right: -6px;
+        @include mq() {
+          right: calc(-12% - 11px);
+        }
       }
     }
     &__num {
@@ -213,6 +228,9 @@ export default Vue.extend({
       @include josefin-m();
       display: flex;
       align-items: center;
+      @include mq() {
+        font-size: pcfz(10px);
+      }
       &:before,
       &:after {
         content: '';
@@ -220,6 +238,9 @@ export default Vue.extend({
         height: 1px;
         width: spvw(20px);
         background: $brown_dark2;
+        @include mq() {
+          width: pcvw(20px);
+        }
       }
       &:before {
         left: 0;
@@ -227,6 +248,9 @@ export default Vue.extend({
       }
       &:after {
         width: spvw(50px);
+        @include mq() {
+          width: pcvw(50px);
+        }
       }
     }
     &__numTxt {
@@ -237,14 +261,20 @@ export default Vue.extend({
       padding: 0.3em 0 1em;
       @include notosans-b();
       font-size: spfz(14px);
+      @include mq() {
+        font-size: pcfz(12px);
+        // white-space: nowrap;
+      }
     }
     &__date {
       @include josefin-r();
       font-size: spfz(12px);
-      // text-align: right;
       position: absolute;
       bottom: 0.5em;
       left: 1em;
+      @include mq() {
+        font-size: pcfz(10px);
+      }
     }
     &__limit {
       width: 12%;
@@ -253,6 +283,9 @@ export default Vue.extend({
       background-image: url('~@/assets/img/line_dot.svg');
       background-repeat: no-repeat;
       background-size: contain;
+      @include mq() {
+        padding: pcvw(5px) pcvw(12px);
+      }
     }
     &__limitTxt {
       display: block;
@@ -263,6 +296,11 @@ export default Vue.extend({
       top: 40%;
       left: -38%;
       white-space: nowrap;
+      @include mq() {
+        font-size: pcfz(10px);
+        top: 42%;
+        left: -50%;
+      }
     }
   }
 }

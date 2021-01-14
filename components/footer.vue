@@ -21,6 +21,9 @@
     text-align: center;
     @include josefin-b();
     font-size: spfz(12px);
+    @include mq() {
+      font-size: pcfz(10px);
+    }
   }
   &__link {
     padding: spvw(12px) spvw(12px);
