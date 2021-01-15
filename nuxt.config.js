@@ -40,6 +40,37 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/icon/favicon-16x16.png' },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/icon/favicon-32x32.png' },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      // splashscreens
+      {
+        href: '/splashscreens/iphonex_splash.png',
+        rel: 'apple-touch-startup-image',
+        media:
+          '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)',
+      },
+      {
+        href: '/splashscreens/iphonexsmax_splash.png',
+        rel: 'apple-touch-startup-image',
+        media:
+          '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)',
+      },
+      {
+        href: '/splashscreens/ipadpro1_splash.png',
+        rel: 'apple-touch-startup-image',
+        media:
+          '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)',
+      },
+      {
+        href: '/splashscreens/ipadpro2_splash.png',
+        rel: 'apple-touch-startup-image',
+        media:
+          '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)',
+      },
+      {
+        href: '/splashscreens/ipadpro3_splash.png',
+        rel: 'apple-touch-startup-image',
+        media:
+          '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)',
+      },
     ],
   },
 
