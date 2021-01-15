@@ -2,10 +2,6 @@
   <div
     :class="[
       [this.$route.name == 'ticket-id' ? 'ticket-detail' : this.$route.name],
-      [$ua.browser() == 'Internet Explorer' ? 'IE' : $ua.browser()],
-      [$ua.isFromPc() == true ? 'PC' : null],
-      [$ua.isFromTablet() == true ? 'TB' : null],
-      [$ua.isFromSmartphone() == true ? 'SP' : null],
       [$store.state.global.loadingEnd == true ? 'is-loaded' : null],
     ]"
     class="l-wrap"
@@ -44,12 +40,7 @@ export default Vue.extend({
     }
   },
   created() {
-    this.browser = this.$ua.browser()
-    if (this.browser === 'Internet Explorer') {
-      this.browser = 'IE'
-    }
     this.$store.dispatch('global/writePageName', this.$route.name)
-    this.$store.dispatch('global/writeBrowser', this.browser)
     this.getStorage()
   },
   mounted() {

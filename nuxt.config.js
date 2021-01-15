@@ -6,19 +6,19 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 
 const site = {
   title: 'SPECIAL TICKETS | Happy BirthDay 26th',
-  titleDes: 'Happy 26th birthday!- お願いを聞いてあげる券',
+  titleDes: 'Happy 26th birthday! - お願いを聞いてあげる券',
+  titleShort: 'HBD26th',
 }
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
   target: 'static', // default is 'server'
-
+  htmlAttrs: {
+    lang: 'ja',
+  },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: site.title,
-    htmlAttrs: {
-      lang: 'ja',
-    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -31,6 +31,9 @@ export default {
       { hid: 'og:title', property: 'og:title', content: site.title },
       { hid: 'og:description', property: 'og:description', content: site.titleDes },
       { name: 'twitter:card', content: 'summary_large_image' },
+      // pwa iOS
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/icon/apple-touch-icon.png' },
@@ -62,6 +65,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/pwa',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -71,10 +75,30 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
-    'nuxt-user-agent',
+    // 'nuxt-user-agent',
     'nuxt-webfontloader',
   ],
-
+  /*
+   * @nuxtjs/pwa Configuration
+   * https://pwa.nuxtjs.org/
+   */
+  pwa: {
+    icon: {
+      source: 'static/icon/icon.png',
+    },
+    manifest: {
+      name: site.titleShort,
+      lang: 'ja',
+      short_name: site.titleShort,
+      title: site.title,
+      'og:title': site.title,
+      description: site.titleDes,
+      'og:description': site.titleDes,
+      theme_color: '#6c655d',
+      background_color: '#fdfaf3',
+      display: 'standalone',
+    },
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
@@ -121,5 +145,10 @@ export default {
       config.resolve.alias['@'] = path.resolve(__dirname)
     },
     transpile: ['gsap'],
+    terser: {
+      terserOptions: {
+        compress: { drop_console: true },
+      },
+    },
   },
 }

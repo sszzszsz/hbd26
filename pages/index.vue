@@ -105,6 +105,13 @@ export default Vue.extend({
         })
     },
   },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    }
+  },
 })
 </script>
 

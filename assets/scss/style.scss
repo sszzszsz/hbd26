@@ -140,9 +140,6 @@ select::-ms-expand {
     &--small {
       min-width: 160px;
       width: 40%;
-      &:after {
-        // border: spvw(2px) solid #6c655d85;
-      }
       .m-btn {
         &__inr {
           padding: spvw(12px) 0 spvw(12px);
