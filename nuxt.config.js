@@ -139,7 +139,7 @@ export default {
 
   webfontloader: {
     google: {
-      families: ['Josefin+Sans:400,500,700', 'Noto+Sans+JP:500,600'],
+      families: ['Josefin+Sans:500,700&display=swap', 'Noto+Sans+JP:500,600&display=swap'],
     },
   },
 

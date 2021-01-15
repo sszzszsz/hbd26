@@ -267,7 +267,7 @@ export default Vue.extend({
       }
     }
     &__date {
-      @include josefin-r();
+      @include josefin-m();
       font-size: spfz(12px);
       position: absolute;
       bottom: 0.5em;

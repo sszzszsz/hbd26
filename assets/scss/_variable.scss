@@ -56,11 +56,6 @@ $spWidth: $breakpoint-sm;
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 600;
 }
-
-@mixin josefin-r() {
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight: 400;
-}
 @mixin josefin-m() {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 500;
