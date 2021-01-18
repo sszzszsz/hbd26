@@ -227,7 +227,7 @@ export default Vue.extend({
       this.loadingAni()
     },
     loadingAni() {
-      const originPos = this.$refs.ticket.$el.offsetTop
+      const originPos = this.$refs.ticket.$el.offsetTop - window.scrollY
       const originW = this.$refs.ticket.$el.offsetWidth
       const prevPos =
         this.$store.state.global.scrollY === 0 ? originPos * 2 : this.$store.state.global.scrollY
@@ -240,7 +240,7 @@ export default Vue.extend({
       })
       tl.set('.m-ticket', { position: 'fixed', top: prevPos, width: originW })
         .to('.m-ticket', {
-          top: originPos,
+          top: originPos - 1,
           duration: 1,
         })
         .to('.m-ticket', {

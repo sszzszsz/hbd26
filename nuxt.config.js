@@ -175,6 +175,7 @@ export default {
       config.resolve.alias['~'] = path.resolve(__dirname)
       config.resolve.alias['@'] = path.resolve(__dirname)
     },
+    // analyze: true,
     transpile: ['gsap'],
     terser: {
       terserOptions: {
