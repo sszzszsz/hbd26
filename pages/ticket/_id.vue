@@ -25,41 +25,42 @@
           netlify-honeypot="bot-field"
           @submit.prevent
         >
-          <section class="p-sec js-scroll is-fadeUp">
-            <div class="m-secTtl">
-              <span class="m-secTtl--sub"
-                ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
-              >
-              <h2 class="m-secTtl--main">DETAIL</h2>
-            </div>
-            <p class="p-detail--txt">{{ detail }}</p>
-          </section>
-
-          <section class="p-sec--skew js-scroll is-fadeUp">
-            <div class="p-sec--inr">
+          <div class="p-sec__wrap">
+            <section class="p-sec js-scroll is-fadeUp">
               <div class="m-secTtl">
                 <span class="m-secTtl--sub"
                   ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
                 >
-                <h2 class="m-secTtl--main">AGREEMENT</h2>
+                <h2 class="m-secTtl--main">DETAIL</h2>
               </div>
-              <ul class="p-agrList">
-                <li v-for="(rule, index) in rules" :key="index" class="p-agrList--item">
-                  <span>{{ rule }}</span>
-                </li>
-              </ul>
-              <div class="p-checkBox">
-                <label for="agree" class="p-checkBox--label">
-                  <input id="agree" v-model="checkBox" type="checkbox" />
-                  <span class="p-checkBox--txt">上記に同意する</span>
-                </label>
-              </div>
-              <p v-if="errorFlag === true" class="p-checkBox--error">
-                同意ボタンをチェックしてください
-              </p>
-            </div>
-          </section>
+              <p class="p-detail--txt">{{ detail }}</p>
+            </section>
 
+            <section class="p-sec--skew js-scroll is-fadeUp">
+              <div class="p-sec--inr">
+                <div class="m-secTtl">
+                  <span class="m-secTtl--sub"
+                    ><span class="m-secTtl--subInr">TICKET {{ num }}</span></span
+                  >
+                  <h2 class="m-secTtl--main">AGREEMENT</h2>
+                </div>
+                <ul class="p-agrList">
+                  <li v-for="(rule, index) in rules" :key="index" class="p-agrList--item">
+                    <span>{{ rule }}</span>
+                  </li>
+                </ul>
+                <div class="p-checkBox">
+                  <label for="agree" class="p-checkBox--label">
+                    <input id="agree" v-model="checkBox" type="checkbox" />
+                    <span class="p-checkBox--txt">上記に同意する</span>
+                  </label>
+                </div>
+                <p v-if="errorFlag === true" class="p-checkBox--error">
+                  同意ボタンをチェックしてください
+                </p>
+              </div>
+            </section>
+          </div>
           <section class="js-scroll is-fadeUp">
             <p class="p-hope--txt">希望がある場合、以下に記入してください</p>
             <textarea
@@ -388,19 +389,31 @@ export default Vue.extend({
   &__cont {
     position: relative;
     z-index: 10;
-    // opacity: 0;
-    // filter: blur(5px);
   }
 }
 .m-ttl {
   margin-bottom: spvw(40px);
   opacity: 0;
+  @include mq() {
+    margin-bottom: 40px;
+  }
 }
 .m-btn {
   margin-bottom: spvw(20px);
+  @include mq() {
+    margin-bottom: 0;
+  }
 }
 .m-link {
   margin: spvw(30px) 0 spvw(40px);
+  @include mq() {
+    margin: 30px 0 50px;
+  }
+}
+.m-ticket {
+  @include mq() {
+    max-width: 600px;
+  }
 }
 .p {
   &-ticket {
@@ -409,11 +422,29 @@ export default Vue.extend({
   &-detail--txt {
     text-align: center;
     font-size: spfz(14px);
+    @include mq() {
+      font-size: 14px;
+    }
   }
   &-sec {
+    @include mq(lg) {
+      width: 45%;
+    }
+    &__wrap {
+      @include mq(lg) {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 120px 0;
+      }
+    }
     &--skew {
       position: relative;
-      margin: spvw(60px) 0 spvw(60px);
+      margin: spvw(70px) 0 spvw(70px);
+      @include mq(lg) {
+        margin: 0;
+        width: 45%;
+      }
       &:before {
         content: '';
         display: block;
@@ -428,6 +459,9 @@ export default Vue.extend({
         background-position: center 2.5%, center 97.5%;
         border: 1px solid #6c655d;
         box-shadow: 0 2px 3px #6c655d63;
+        @include mq(lg) {
+          display: none;
+        }
       }
     }
     &--inr {
@@ -435,6 +469,12 @@ export default Vue.extend({
       z-index: 100;
       padding: spvw(50px) 0 spvw(70px);
       font-size: spfz(14px);
+      @include mq() {
+        font-size: 14px;
+      }
+      @include mq(lg) {
+        padding: 0;
+      }
     }
     &--done {
       opacity: 0;
@@ -511,6 +551,9 @@ export default Vue.extend({
     text-align: center;
     font-size: spfz(14px);
     margin-bottom: 1em;
+    @include mq() {
+      font-size: 14px;
+    }
   }
   &-hope--txtarea {
     font-size: 16px;
@@ -551,44 +594,6 @@ export default Vue.extend({
         }
       }
     }
-  }
-}
-.p-load {
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &__inr {
-    width: 100vw;
-    height: 100vw;
-    background: #fdfaf3;
-    border-radius: 50%;
-    transform: scale(3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  &__txt {
-    font-size: 100px;
-    // color: transparent;
-    // -webkit-text-stroke: 1px #6c655d;
-    line-height: 1;
-    position: fixed;
-    z-index: 101;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
   }
 }
 </style>

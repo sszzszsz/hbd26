@@ -95,7 +95,7 @@ export default Vue.extend({
 .l {
   &-wrap {
     position: relative;
-    padding: spvw(10px) spvw(10px);
+    padding: 10px;
     overflow: hidden;
     min-height: 100vh;
     background-color: $brown_pale1;
@@ -133,7 +133,8 @@ export default Vue.extend({
 
   &-cont {
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 20px);
+    height: 100%;
     position: relative;
 
     @supports (-webkit-touch-callout: none) {
@@ -144,7 +145,8 @@ export default Vue.extend({
   &-inr {
     position: relative;
     z-index: 6;
-    min-height: 100vh;
+    min-height: calc(100vh - 20px);
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -156,14 +158,11 @@ export default Vue.extend({
 
 // TOP
 .index {
+  &.l-wrap {
+    height: 100vh;
+  }
   .l-cont {
     opacity: 0;
-  }
-  .l-inr {
-    padding: spvw(12px);
-    @include mq() {
-      padding: 12px;
-    }
   }
 }
 // チケット詳細

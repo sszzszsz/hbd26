@@ -111,9 +111,17 @@ export default Vue.extend({
     display: flex;
     box-shadow: 1px 2px 3px #6c655d6e;
     z-index: 50;
+    left: 0;
+    right: 0;
     @include mq() {
       height: pcvw(96px);
       min-width: pcvw(280px);
+    }
+    @include mq(lg) {
+      height: 114px;
+      width: 400px;
+      margin: 0 auto;
+      min-width: 0;
     }
 
     &:after {
@@ -159,13 +167,18 @@ export default Vue.extend({
       @include mq() {
         margin: pcvw(8px) auto;
       }
+      @include mq(lg) {
+        margin: 8px auto;
+      }
       &:before {
         display: block;
         content: '';
         width: 14px;
-        height: 11px;
-        background-image: url('~@/assets/img/bg_frame_corner_tl.svg');
-        background-repeat: no-repeat;
+        height: calc(100% + 7px);
+        background-image: url(/_nuxt/assets/img/bg_frame_corner_tl.svg),
+          url(/_nuxt/assets/img/bg_frame_corner_bl.svg);
+        background-repeat: no-repeat no-repeat;
+        background-position: top left, bottom left;
         background-size: contain;
         position: absolute;
         top: -4px;
@@ -175,9 +188,11 @@ export default Vue.extend({
         display: block;
         content: '';
         width: 14px;
-        height: 11px;
-        background-image: url('~@/assets/img/bg_frame_corner_tr.svg');
-        background-repeat: no-repeat;
+        height: calc(100% + 7px);
+        background-image: url('~@/assets/img/bg_frame_corner_tr.svg'),
+          url('~@/assets/img/bg_frame_corner_br.svg');
+        background-repeat: no-repeat no-repeat;
+        background-position: top right, bottom right;
         background-size: contain;
         position: absolute;
         top: -4px;
@@ -193,33 +208,8 @@ export default Vue.extend({
         padding: pcvw(5px) pcvw(8px) pcvw(5px) pcvw(12px);
         width: 92%;
       }
-
-      &:before {
-        display: block;
-        content: '';
-        width: 14px;
-        height: 11px;
-        background-image: url('~@/assets/img/bg_frame_corner_bl.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-        position: absolute;
-        bottom: -3px;
-        left: -7px;
-      }
-      &:after {
-        display: block;
-        content: '';
-        width: 14px;
-        height: 11px;
-        background-image: url('~@/assets/img/bg_frame_corner_br.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-        position: absolute;
-        bottom: -3px;
-        right: -6px;
-        @include mq() {
-          right: calc(-12% - 11px);
-        }
+      @include mq(lg) {
+        padding: 5px 8px 5px 12px;
       }
     }
     &__num {
@@ -231,6 +221,9 @@ export default Vue.extend({
       @include mq() {
         font-size: pcfz(10px);
       }
+      @include mq(lg) {
+        font-size: 10px;
+      }
       &:before,
       &:after {
         content: '';
@@ -240,6 +233,9 @@ export default Vue.extend({
         background: $brown_dark2;
         @include mq() {
           width: pcvw(20px);
+        }
+        @include mq(lg) {
+          width: 20px;
         }
       }
       &:before {
@@ -265,6 +261,10 @@ export default Vue.extend({
         font-size: pcfz(12px);
         // white-space: nowrap;
       }
+      @include mq(lg) {
+        font-size: 16px;
+        padding: 0.6em 0 1em;
+      }
     }
     &__date {
       @include josefin-m();
@@ -274,6 +274,9 @@ export default Vue.extend({
       left: 1em;
       @include mq() {
         font-size: pcfz(10px);
+      }
+      @include mq(lg) {
+        font-size: 10px;
       }
     }
     &__limit {
@@ -300,6 +303,10 @@ export default Vue.extend({
         font-size: pcfz(10px);
         top: 42%;
         left: -50%;
+      }
+      @include mq(lg) {
+        font-size: 10px;
+        left: -18%;
       }
     }
   }
@@ -339,10 +346,16 @@ export default Vue.extend({
   }
   &--usedTxt {
     font-size: spfz(30px);
+    @include mq() {
+      font-size: pcfz(30px);
+    }
   }
   &--usedDate {
     font-size: spfz(12px);
     padding-top: 0.3em;
+    @include mq() {
+      font-size: pcfz(10px);
+    }
   }
 }
 </style>

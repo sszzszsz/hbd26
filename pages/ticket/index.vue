@@ -197,7 +197,7 @@ export default Vue.extend({
     font-size: spfz(14px);
     color: $brown_dark2;
     @include mq() {
-      font-size: pcfz(16px);
+      font-size: pcfz(14px);
     }
     span {
       display: inline-block;
@@ -207,7 +207,7 @@ export default Vue.extend({
       font-size: spfz(34px);
       -webkit-text-stroke: 1px $brown_dark2;
       @include mq() {
-        font-size: pcfz(34px);
+        font-size: pcfz(28px);
       }
     }
   }

@@ -126,37 +126,43 @@ export default Vue.extend({
     right: 0;
     width: 100%;
     height: 100%;
-  }
-  &::after {
-    content: '';
-    width: 100%;
-    height: 100%;
+    max-height: calc(100vh - 20px);
     background: url('~@/assets/img/bg_top.svg') no-repeat;
     background-size: cover;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    z-index: 9;
+    @include mq(lg) {
+      background: url('~@/assets/img/bg_top_pc.svg') no-repeat;
+      background-size: cover;
+      max-width: 100%;
+      border-radius: 17%;
+      overflow: hidden;
+    }
   }
 }
 .p {
   &-logo {
     text-align: center;
     margin-bottom: 15vh;
+    @include mq(lg) {
+      margin: 20vh 0 5vh;
+    }
     &__img {
       opacity: 0;
       transform: translateY(10px);
       @include mq() {
         width: 35%;
       }
+      @include mq(lg) {
+        width: 200px;
+      }
     }
   }
   &-title {
     padding-top: 10vh;
     margin-bottom: 15vh;
+    @include mq(lg) {
+      padding-top: 8vh;
+      margin-bottom: 8vh;
+    }
 
     &__txt {
       @include josefin-b();
@@ -169,6 +175,10 @@ export default Vue.extend({
       @include mq() {
         font-size: pcfz(40px);
       }
+      @include mq(lg) {
+        font-size: 48px;
+        letter-spacing: -0.1em;
+      }
     }
     &__txtInr {
       span {
@@ -176,6 +186,11 @@ export default Vue.extend({
         opacity: 0;
         display: inline-block;
         transform: translateY(5px);
+        @include mq(lg) {
+          &:nth-child(7) {
+            padding-right: 0.5em;
+          }
+        }
       }
     }
   }
@@ -185,6 +200,9 @@ export default Vue.extend({
   transform: translateY(10px);
   @include mq() {
     max-width: 500px;
+  }
+  @include mq(lg) {
+    max-width: 300px;
   }
 }
 </style>

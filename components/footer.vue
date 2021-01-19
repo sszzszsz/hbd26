@@ -24,6 +24,9 @@
     @include mq() {
       font-size: pcfz(10px);
     }
+    @include mq(lg) {
+      font-size: 12px;
+    }
   }
   &__link {
     padding: spvw(12px) spvw(12px);

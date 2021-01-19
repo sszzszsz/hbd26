@@ -71,9 +71,13 @@ select::-ms-expand {
 // Module
 /*----------------------------------------*/
 .l-main {
-  min-height: 100vh;
+  min-height: 100%;
   @supports (-webkit-touch-callout: none) {
     min-height: -webkit-fill-available;
+  }
+  &__cont {
+    max-width: 1024px;
+    margin: 0 auto;
   }
 }
 .m {
@@ -83,6 +87,9 @@ select::-ms-expand {
     min-width: 230px;
     width: 75%;
     margin: 0 auto;
+    @include mq(lg) {
+      max-width: 300px;
+    }
     &:after {
       content: '';
       display: block;
@@ -96,6 +103,10 @@ select::-ms-expand {
       @include mq() {
         bottom: pcvw(-6px);
         left: pcvw(6px);
+      }
+      @include mq(lg) {
+        bottom: -6px;
+        left: 6px;
       }
     }
     &__inr {
@@ -112,6 +123,9 @@ select::-ms-expand {
       @include mq() {
         padding: pcvw(20px) 0 pcvw(20px);
       }
+      @include mq() {
+        padding: 20px 0;
+      }
     }
 
     &__txt {
@@ -125,6 +139,9 @@ select::-ms-expand {
         @include mq() {
           font-size: pcfz(18px);
         }
+        @include mq(lg) {
+          font-size: 16px;
+        }
       }
       &--sub {
         @include notosans-m();
@@ -133,6 +150,10 @@ select::-ms-expand {
         padding-top: 0.1em;
         @include mq() {
           font-size: pcfz(12px);
+        }
+        @include mq(lg) {
+          padding-top: 0.5em;
+          font-size: 11px;
         }
       }
     }
@@ -153,6 +174,9 @@ select::-ms-expand {
             @include mq() {
               font-size: pcfz(14px);
             }
+            @include mq(lg) {
+              font-size: 12px;
+            }
           }
         }
       }
@@ -165,6 +189,9 @@ select::-ms-expand {
       display: inline-block;
       color: $brown_dark2;
       text-decoration: none;
+      @include mq(lg) {
+        font-size: 14px;
+      }
       &::before {
         content: '';
         display: inline-block;
@@ -172,6 +199,10 @@ select::-ms-expand {
         height: spvw(10px);
         background: url('~@/assets/img/common/icon_arrow_dropleft.svg') no-repeat;
         background-size: contain;
+        @include mq(lg) {
+          width: 10px;
+          height: 10px;
+        }
       }
     }
     &__txt {
@@ -184,6 +215,9 @@ select::-ms-expand {
   &-ttl {
     text-align: center;
     padding-top: spvw(24px);
+    @include mq() {
+      padding-top: 0px;
+    }
     &__logo {
       text-align: center;
       margin-bottom: spvw(13px);
@@ -191,9 +225,12 @@ select::-ms-expand {
         min-height: 51px;
       }
       @include mq() {
-        margin-bottom: pcvw(20px);
+        margin-bottom: 20px;
         img {
-          width: 25%;
+          width: 20%;
+          @include mq(lg) {
+            width: 170px;
+          }
         }
       }
     }
@@ -206,7 +243,10 @@ select::-ms-expand {
       text-align: center;
       line-height: 1.2;
       @include mq() {
-        font-size: pcfz(36px);
+        font-size: pcfz(24px);
+      }
+      @include mq(lg) {
+        font-size: 28px;
       }
       span {
         position: relative;
@@ -225,6 +265,12 @@ select::-ms-expand {
         left: 0;
         transform: translateX(-5%);
         z-index: 100;
+        @include mq() {
+          height: pcvw(12px);
+        }
+        @include mq(lg) {
+          height: 14px;
+        }
       }
     }
   }
@@ -247,6 +293,9 @@ select::-ms-expand {
       @include mq() {
         font-size: pcfz(10px);
       }
+      @include mq(lg) {
+        font-size: 12px;
+      }
       &:after {
         content: '';
         display: inline-block;
@@ -267,6 +316,9 @@ select::-ms-expand {
     &--main {
       font-size: spfz(22px);
       border-bottom: 1px solid $brown_dark2;
+      @include mq(lg) {
+        font-size: 20px;
+      }
     }
     &:after,
     &:before {
@@ -276,6 +328,9 @@ select::-ms-expand {
       position: absolute;
       bottom: 0;
       line-height: 0;
+      @include mq(lg) {
+        font-size: 12px;
+      }
     }
     &:before {
       left: 0;
