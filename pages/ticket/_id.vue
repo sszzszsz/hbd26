@@ -568,6 +568,7 @@ export default Vue.extend({
     color: $brown_dark2;
     margin-bottom: spvw(30px);
     transform: scale(0.88);
+    box-shadow: 0px 0px 3px #bbb2a8;
   }
   &-send {
     display: block;

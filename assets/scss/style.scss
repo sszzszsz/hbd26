@@ -120,6 +120,7 @@ select::-ms-expand {
       border: 3px solid $brown_dark2;
       background: #fdfcf887;
       color: $brown_dark2;
+      box-shadow: 2px 2px 4px #6c655d66;
       @include mq() {
         padding: pcvw(20px) 0 pcvw(20px);
       }
@@ -277,7 +278,7 @@ select::-ms-expand {
 
   // section title
   &-secTtl {
-    margin-bottom: spvw(30px);
+    margin-bottom: 2em;
     padding: spvw(30px) 14px 0;
     @include josefin-m();
     text-align: center;
@@ -314,6 +315,7 @@ select::-ms-expand {
       z-index: 110;
     }
     &--main {
+      margin-top: 0.5em;
       font-size: spfz(22px);
       border-bottom: 1px solid $brown_dark2;
       @include mq(lg) {

@@ -14,10 +14,13 @@
   position: relative;
   z-index: 10;
 }
+.ticket-leave-active + .l-footer {
+  opacity: 0;
+}
 .m-footer {
   &__copy {
     display: block;
-    padding: spvw(10px);
+    padding: spvw(15px) 0;
     text-align: center;
     @include josefin-b();
     font-size: spfz(12px);

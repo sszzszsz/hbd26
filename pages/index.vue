@@ -1,6 +1,6 @@
 <template>
   <main class="l-main">
-    <frame />
+    <!-- <frame /> -->
     <star />
     <div class="l-main__cont">
       <div class="p-title">
@@ -39,12 +39,12 @@
 <script>
 import Vue from 'vue'
 import gsap from 'gsap'
-import frame from '~/components/frame.vue'
+// import frame from '~/components/frame.vue'
 import Star from '~/components/star.vue'
 
 export default Vue.extend({
   components: {
-    frame,
+    // frame,
     Star,
   },
   transition: {

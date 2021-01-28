@@ -99,14 +99,16 @@ export default Vue.extend({
     overflow: hidden;
     min-height: 100vh;
     background-color: $brown_pale1;
-    &.is-load {
+    &.index,
+    &.ticket,
+    &.ticket-detail {
       background-image: linear-gradient(
           -45deg,
-          #6c655d80 25%,
+          #928d8280 25%,
           transparent 25%,
           transparent 50%,
-          #6c655d80 50%,
-          #6c655d80 75%,
+          #928d8280 50%,
+          #928d8280 75%,
           transparent 75%,
           transparent 100%
         ),
@@ -136,7 +138,6 @@ export default Vue.extend({
     min-height: calc(100vh - 20px);
     height: 100%;
     position: relative;
-
     @supports (-webkit-touch-callout: none) {
       min-height: -webkit-fill-available;
     }
@@ -163,6 +164,17 @@ export default Vue.extend({
   }
   .l-cont {
     opacity: 0;
+  }
+}
+.l-wrap .l-cont {
+  padding: 0 10px;
+  background: $brown_pale1;
+  border: 1px solid $brown_dark2;
+}
+
+.ticket {
+  .m-frame {
+    display: none;
   }
 }
 // チケット詳細
