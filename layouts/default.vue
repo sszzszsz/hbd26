@@ -162,7 +162,7 @@ export default Vue.extend({
   &.l-wrap {
     height: 100vh;
   }
-  .l-cont {
+  .l-inr {
     opacity: 0;
   }
 }

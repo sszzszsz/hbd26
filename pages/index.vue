@@ -76,7 +76,8 @@ export default Vue.extend({
     doAnimation() {
       const timeLine = gsap.timeline()
       timeLine
-        .to('.l-cont', {
+        .to('.l-inr', {
+          delay: 0.5,
           duration: 0.5,
           opacity: 1,
           ease: 'power2.in',

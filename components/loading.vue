@@ -40,7 +40,7 @@ export default Vue.extend({
           ease: 'sine.out',
         })
         .to('.l-loading', {
-          opacity: 0,
+          opacity: 1,
           duration: 0.5,
           ease: 'sine.out',
           onComplete() {
@@ -54,13 +54,15 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .l-loading {
   display: flex;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 0;
+  top: 10px;
   right: 0;
   bottom: 0;
-  left: 0;
+  left: 10px;
   z-index: 100;
   background-image: url('~@/assets/img/paper_main.png');
 }

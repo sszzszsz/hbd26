@@ -164,9 +164,9 @@ select::-ms-expand {
       width: 40%;
       .m-btn {
         &__inr {
-          padding: spvw(12px) 0 spvw(12px);
+          padding: spvw(15px) 0 spvw(12px);
           @include mq() {
-            padding: pcvw(12px) 0 pcvw(12px);
+            padding: pcvw(15px) 0 pcvw(12px);
           }
         }
         &__txt {
